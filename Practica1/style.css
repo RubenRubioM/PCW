@@ -1,5 +1,45 @@
-h1{
-	color:#593535;
-	text-align: center;
-	background-color: #3F36EB
+nav > ul{
+	list-style: none;
+	padding-left: 20%;
+}
+
+nav > ul > li{
+	display: table;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+nav > ul > li > a{
+	padding-right: 50px;
+
+}
+a:hover{
+	background-color: #E87272;
+}
+
+#imagen-titulo{
+	
+}
+
+#imagen-header{
+	display: inline;
+	float: left;
+
+}
+
+body{
+	min-width: 320px;
+	max-width: 1024px;
+	margin: 0 auto;
+}
+
+body>header{
+	float: all;
+	margin-bottom: 130px;
+	background-color: #f00;
+}
+
+header > img{
+	width: 150px;
+	height: 150px;
 }
