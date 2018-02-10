@@ -1,3 +1,5 @@
+
+
 body{
 	min-width: 320px;
 	max-width: 1920px;
@@ -13,7 +15,8 @@ body{
 	}
 
 nav{
-	background-color: #66FCB0;
+	background-color: #e8eadd;
+	
 	font-family: 'Cinzel', serif;
 	overflow: hidden;
 
@@ -33,20 +36,21 @@ nav{
 
 			nav > ul > li > a{
 				padding: 0px 20px;
-				color: #000;
+				color: 	#2d572c;
 				text-decoration: none;
 			}
 			
-
-a:hover{
-	background-color: #E87272;
-}
+				nav>ul>li>a:hover{
+					color: 	#2d572c;
+					background-color: #C5AE77;
+					zoom: 1.1;
+				}
 
 
 #imagen-header{
 	display: inline-block;
 	float: left;
-	
+
 }
 #contenedor-header{
 	padding: 10px 30%;
@@ -56,10 +60,11 @@ a:hover{
 	#contenedor-header>img{
 		width: 150px;
 		height: 150px;
+
 	}
 	#contenedor-header>h1{
 		width: auto;
-		
+		color: 	#2d572c;
 		padding: 50px 0 0 30px;
 		margin:0;
 	}
@@ -68,8 +73,6 @@ a:hover{
 		margin: 0;
 
 	}
-
-
 
 footer {
     background-color: black;
@@ -81,21 +84,45 @@ footer {
 .social-footer {
     width: 33%;
     float: left;
-    height: 65%;
+    height: 70%;
 }
 	.social-footer:hover {
 	    background-color: black;
 	    opacity: .5;
+	    zoom: 1.1;
 	}
 .center {
     width: 50px;
     margin: auto;
     padding-top: 60px;
 }
+
 .copyright {
     color: #000;
+    font-family: 'Cinzel', serif;
     font-size: .9em;
     text-align: center;
     display: block;
     padding-top: 15px;
+    padding-left: 25px;
+
 }
+
+
+#boton-ir-arriba{
+	padding: 0 50%;
+	overflow: hidden;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.3em;
+
+}
+	#boton-ir-arriba>a{
+		color: #2d572c;
+		text-decoration: none;
+		
+	}
+		#boton-ir-arriba>a:hover{
+			
+			color: #fff;
+		}
