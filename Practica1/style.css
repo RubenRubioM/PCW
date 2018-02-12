@@ -18,7 +18,7 @@ body{
 		height: auto;
 		width: auto;
 		min-height: 150px; 
-		background-image: url(fondo-header.jpg);
+		background-image: url(Images/fondo-header.jpg);
 	}
 
 
@@ -91,7 +91,7 @@ footer {
     background-color: black;
     clear: both;
     height: 300px;
-    background-image: url(fondo-footer.jpg);
+    background-image: url(Images/fondo-footer.jpg);
     background-position: 50% 50%;
 }
 .social-footer {
