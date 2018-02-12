@@ -23,22 +23,24 @@ body{
 
 
 #contenedor-header{
-	padding: 10px 30%;
+	padding: 20px 30%;
 	width: auto;
 	font-family: 'Cinzel', serif;
+	text-align: center;
 }
 	#contenedor-header>img{
+
 		width: 100px;
 		height: 100px;
 	}
 	#contenedor-header>h1{
 		width: auto;
 		color: 	#2d572c;
-		padding: 10px 0 0 30px;
+		padding: 20px 0 0 30px;
 		margin:0;
 	}
 	#contenedor-header>p{
-		width: 500px;
+		width: auto;
 		margin: 0;
 
 	}
@@ -114,7 +116,8 @@ footer {
     font-size: .9em;
     text-align: center;
     display: block;
-    padding-top: 15px;
+    margin: 0;
+    padding-top: 100px;
     padding-left: 25px;
 
 }
