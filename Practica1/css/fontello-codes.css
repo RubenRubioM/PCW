@@ -5,6 +5,9 @@
 .icon-left-big:before { content: '\e803'; } /* '' */
 .icon-right-big:before { content: '\e804'; } /* '' */
 .icon-home:before { content: '\e805'; } /* '' */
+.icon-comment:before { content: '\e806'; } /* '' */
+.icon-to-end-alt:before { content: '\e807'; } /* '' */
+.icon-to-start-alt:before { content: '\e808'; } /* '' */
 .icon-spin2:before { content: '\e831'; } /* '' */
 .icon-angle-circled-up:before { content: '\f139'; } /* '' */
 .icon-thumbs-up-alt:before { content: '\f164'; } /* '' */
