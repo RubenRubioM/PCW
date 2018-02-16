@@ -79,7 +79,7 @@ nav{
 				nav>ul>li>a:hover{
 					
 					background-color: #C5AE77;
-					zoom: 1.1;
+
 				}
 
 
@@ -101,7 +101,6 @@ nav{
 	.social-footer:hover {
 	    background-color: black;
 	    opacity: .5;
-	    zoom: 1.1;
 	}
 .center {
     width: 50px;
@@ -120,6 +119,9 @@ nav{
     padding-left: 25px;
 
 }
+	.copyright>a>strong:hover{
+		color:#2d572c;
+	}
 
 
 #boton-ir-arriba{
@@ -143,12 +145,13 @@ nav{
 
 #contenedor-todas-las-recetas{
 	background-color: #f2f1aa;
-	padding: 0 25%;
+	padding: 0 10%;
 	text-align: center;
 	width: auto;
 	height: auto;
 	float: left;
 	font-family: 'Cinzel', serif;
+
 }
 
 .contenedor-recetas{
@@ -157,6 +160,7 @@ nav{
 	height: 500px;
 	float: left;
 	margin: 20px;
+
 	
 }
 		.contenedor-recetas>section{
@@ -175,24 +179,57 @@ nav{
 							margin: 0;
 							text-decoration: none;
 						}
+							.contenedor-recetas>section>header>a:hover{
+								color: #f2f1aa;
+							}
 						.contenedor-recetas>section>header>p>a{
 							color: #2d572c; 
 							margin: 0;
 							text-decoration: none;
 						}
+							.contenedor-recetas>section>header>p>a:hover{
+								color: #f2f1aa;
+							}
 			.contenedor-recetas>section>img{
 				width: 300px;
 				height: 300px;
 				margin: 0;
 				
 			}
+#contenedor-recetas-navegacion{
+	background-color: #f2f1aa;
+	text-decoration: none;
+	text-align: center;
+	font-family: 'Cinzel', serif;
+}
+	#contenedor-recetas-navegacion>p{
+		margin:0;
+		color: #2d572c;
+		padding-bottom: 10px;
+		font-size: 1.5em;
+	}
+			#contenedor-recetas-navegacion>p>a{
+				color: #2d572c;
+			}
 
+		#contenedor-recetas-navegacion>p>a:hover{
+			color: #D4D394;
+			
+		}
 
-@media (min-width: 700px){
+@media (min-width: 900px){
 	#contenedor-todas-las-recetas{
-		width: 100%;
-		padding: 0 12%;
-		align-items: center;
+		
+		
+	}
+	.contenedor-recetas{
+		
+	}
+}
+
+@media (min-width: 1300px){
+	#conenedor-todas-las-recetas{
+
 	}
 }
 
