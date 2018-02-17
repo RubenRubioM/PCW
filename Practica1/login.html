@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="es">
 	<head>
-
 		<meta charset="utf-8">
+		<link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/css?family=Yellowtail" rel="stylesheet">
 		<link rel="stylesheet" type="text/css" href="css/fontello.css">
@@ -33,14 +33,14 @@
 		</nav>
 
 	
-		<div id="contenedor-formulario-login">
-			<section id="formulario-login">	  
+		<div id="contenedor-formulario-login-registro">
+			<section id="formulario-login-registro">	  
 				<h2>LOGIN</h2>  
 		    <form>
 
 		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required placeholder="usuario  " pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
 
-		      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="psw" placeholder="contraseña" pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+		      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="psw" placeholder="contraseña" pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" required size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
 		      
 		      <input type="submit" value="Enviar"><br><br>
 		      ¿Todavía no tienes cuenta? <a href="registro.html"><u><strong>Registrate aquí</strong></u></span></a>

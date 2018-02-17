@@ -26,7 +26,6 @@ body{
 	text-align: center;
 }
 	#contenedor-header>img{
-
 		width: 100px;
 		height: 100px;
 	}
@@ -68,18 +67,18 @@ nav{
 			margin-right: auto;
 			margin-left: auto;
 			
+			font-size: 18px;
 		}
 
 			nav > ul > li > a{
 				padding: 0px 20px;
 				color: 	#2d572c;
 				text-decoration: none;
+				font-family: 'Roboto Condensed', sans-serif;
 			}
 			
 				nav>ul>li>a:hover{
-					
 					background-color: #C5AE77;
-
 				}
 
 
@@ -236,13 +235,13 @@ nav{
 
 /* Estilo de la pagina login */
 
-#contenedor-formulario-login{
+#contenedor-formulario-login-registro{
 	background-color: #F3F3CF;
 	text-align: center;
 
 }
 
-#formulario-login{
+#formulario-login-registro{
 	display: inline-block;
 	text-align: center;
 	background-color: #D4D394;
@@ -253,7 +252,7 @@ nav{
 	border:3px solid #fff;
 
 }
-	#formulario-login>h2{
+	#formulario-login-registro>h2{
 		margin:0;
 		padding-bottom: 1em;
 		font-size: 40px;
@@ -261,25 +260,95 @@ nav{
 
 
 	}
-	#formulario-login>form{
+	#formulario-login-registro>form{
 		display: inline-block;
 		justify-content: center;
 	}
-	#formulario-login>form>a{
-		text-decoration: none;
-		color: #2d572c;
-	}
-	#formulario-login>form>input{
-		color: #2d572c;
-		
-	}
-	#formulario-login>form>input:hover{
-		background-color: #F4EAEA;
-		
-	}
+		#formulario-login-registro>form>a{
+			text-decoration: none;
+			color: #2d572c;
+		}
+		#formulario-login-registro>form>input{
+			color: #2d572c;
+			
+		}
+			#formulario-login-registro>form>input:hover{
+				background-color: #F4EAEA;
+				
+			}
 	
 	
+/* Comienza la pagina buscar */
+
+#contenedor-buscador-recetas-buscar{
+	background-color: #F3F3CF;
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	padding-top: 1em;
+	display: block;
+}
+
+	#contenedor-buscador-recetas-buscar>p{
+		margin: 0;
+	}
+
+/* Comienza la pagina receta */
+
+#contenedor-todas-las-recetas-receta{
+	background-color: #F3F3CF;
+	text-align: center;
+	font-family: 'Cinzel', serif;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+}
+
+.contenedor-recetas-receta{
+	background-color: #D4D394;
+	width: auto;
+	height: auto;
 	
+}
+
+			.contenedor-recetas-receta>section>header{
+				margin: 0;
+
+			}
+
+				.contenedor-recetas-receta>section>img{
+				width: 300px;
+				height: 300px;
+				margin: 0;
+				
+				}
+						.contenedor-recetas-receta>section>header>a>h3{
+							margin: 0;
+						}	
+						
+
+
+						.contenedor-recetas-receta>section>header>a{
+							color: #2d572c; 
+							margin: 0;
+							text-decoration: none;
+						}
+							.contenedor-recetas-receta>section>header>a:hover{
+								color: #f2f1aa;
+							}
+							.contenedor-recetas-receta>section>header>p>a{
+								color: #2d572c; 
+								margin: 0;
+								text-decoration: none;
+							}
+								.contenedor-recetas-receta>section>header>p>a:hover{
+									color: #f2f1aa;
+								}
+
+								.contenedor-recetas-receta>section>header>p>button{
+									border: 0px;
+									background-color: rgba(0,0,0,0); 
+								}
 
 /* Comienzan los media query */
 

@@ -7,7 +7,7 @@
 		<link rel="stylesheet" type="text/css" href="css/fontello.css">
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="with=device-width, initial-scale=1.0">
-		<title>Inicio</title>
+		<title>Registro</title>
 
 	</head>
 	<body>
@@ -31,7 +31,31 @@
 			</ul>
 		</nav>
 
-	
+		
+		<div id="contenedor-formulario-login-registro">
+			<section id="formulario-login-registro">	  
+				<h2>REGISTRO</h2>  
+		    <form>
+
+		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
+
+		      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="psw" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+
+		      <label for="psw2"><strong>Confirma contraseña: </strong></label><input id="psw2" type="password" name="psw2" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+
+		      <label for="nombre"><strong>Nombre completo: </strong></label><input id="nombre" type="text" name="nombre" required title="Introduzca aqui su nombre completo"><br>
+
+		      <label for="email"><strong>E-mail: </strong></label><input id="email" type="email" name="email" required title="Introduzca aqui su correo electronico"><br>
+
+		      <label for="fecha"><strong>Fecha: </strong></label><input id="fecha" type="date" name="fecha" required title="Introduzca aqui su fecha de nacimiento"><br>
+		      
+
+		      <input type="submit" value="Enviar"><br><br>
+		      ¿Ya tienes una cuenta?<a href="login.html"><u><strong>Inicia sesión aquí</strong></u></span></a>
+
+		    </form>
+	  	</section>
+		</div>
 
 
  		<footer id="footer-comun">
