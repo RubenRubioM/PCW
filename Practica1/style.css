@@ -259,10 +259,8 @@ nav{
 	#formulario-login-registro>h2{
 		margin:0;
 		padding-bottom: 1em;
-		font-size: 40px;
+		font-size: 20px;
 		font-family: 'Cinzel', serif;
-
-
 	}
 	#formulario-login-registro>form{
 		display: inline-block;
@@ -374,9 +372,24 @@ nav{
 
 
 #contenedor-receta-comentarios{
-	border-top: 10px solid white;
+	border-top: 5px solid white;
 	font-family: 'Roboto Condensed', sans-serif;
 
+}
+
+
+
+.subtitulo-comentario-receta{
+	text-align: left;
+	opacity: 0.7;
+	font-size: 9px;
+}
+
+.comentario-receta{
+	font-size: 11px;
+	text-align: left;
+	padding: 0 5px;
+	border: 2px solid white;
 }
 
 /* Comienzan los media query */
@@ -389,11 +402,20 @@ nav{
 		
 		
 	}
+
 }
 
 @media (min-width: 900px){
 	label{
 		display:inline-block;
+	}
+
+
+	#formulario-login-registro>h2{
+		margin:0;
+		padding-bottom: 1em;
+		font-size: 30px;
+		font-family: 'Cinzel', serif;
 	}
 }
 
@@ -401,6 +423,12 @@ nav{
 	label{
 		display: inline-block;
 		padding-top: 1em;
+	}
+	#formulario-login-registro>h2{
+		margin:0;
+		padding-bottom: 1em;
+		font-size: 40px;
+		font-family: 'Cinzel', serif;
 	}
 }
 
