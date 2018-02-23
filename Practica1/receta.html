@@ -37,19 +37,19 @@
 					<header>
 						<h3>Coso vegano</h3>
 						<p>
-							<span class="icon-user" style="color:#525252">5 </span>
+							<span class="icon-user" id="numero-comensales">5 </span>
 
-							<span style="color: #F82543">&#9200; 50</span>
+							<span id="numero-preparacion">&#9200; 50</span>
 
-							<span style="color: #BDB209">🌟 4</span>
+							<span id="numero-dificultad">🌟 4</span>
 						</p>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<button><span class="icon-comment" style="color: #2d572c">50</span></button>
+							<button><span class="icon-comment" id="boton-comentario">50</span></button>
 
-							<button><span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span></button>
+							<button><span class="icon-thumbs-up-alt" id="boton-like">1,4k</span></button>
 
-							<button><span class="icon-thumbs-down-alt" style="color: #a00">10</span></button>
+							<button><span class="icon-thumbs-down-alt" id="boton-dislike">10</span></button>
 
 							
 						</p>
@@ -67,7 +67,7 @@
 						<p><time datetime="2018-01-05">5 de Enero de 2018</time></p>
 					</footer>
 					
-					<span style="text-align: left; font-family: 'Cinzel', serif; font-weight: bold">Ultimos comentarios</span>
+					<span id="ultimos-comentarios">Ultimos comentarios</span>
 
 					<!-- Zona de comentarios -->
 					<div id="contenedor-receta-comentarios">
@@ -78,6 +78,35 @@
 							<span><time datetime="2018-01-05 19:40">(Martes, 05/01/2018, 19:40h)</time></span>
 						</p>
 						<p class="comentario-receta">Vestibulum id tellus sit amet urna blandit ornare sit amet accumsan metus. Integer et neque feugiat, eleifend justo et, tristique diam. Donec ac ligula ut ligula feugiat bibendum et molestie enim. Mauris condimentum et magna eu pharetra. Sed cursus egestas lectus eget lobortis. Fusce sollicitudin sem sed accumsan venenatis. Praesent id mauris sit amet metus commodo ultricies. Mauris elit lacus, convallis id dignissim vitae, bibendum nec metus. Donec dapibus mauris enim, eu mollis purus tincidunt pretium. Curabitur interdum libero elit, sit amet fringilla eros egestas in. Duis nisl lacus, facilisis a justo vitae, posuere tempus dolor. Donec massa lectus, suscipit ut ligula consequat, aliquam sagittis odio. </p>
+					</div>
+
+					<div id="contenedor-receta-comentarios">
+						<h3>Titulo comentario</h3>
+						<p class="subtitulo-comentario-receta">
+							<span class="icon-user"></span>
+							<span>Ruben Rubio Martinez,</span>
+							<span><time datetime="2018-01-05 19:40">(Martes, 05/01/2018, 19:40h)</time></span>
+						</p>
+						<p class="comentario-receta">Vestibulum id tellus sit amet urna blandit ornare sit amet accumsan metus. Integer et neque feugiat, eleifend justo et, tristique diam. Donec ac ligula ut ligula feugiat bibendum et molestie enim. Mauris condimentum et magna eu pharetra. Sed cursus egestas lectus eget lobortis. Fusce sollicitudin sem sed accumsan venenatis. Praesent id mauris sit amet metus commodo ultricies. Mauris elit lacus, convallis id dignissim vitae, bibendum nec metus. Donec dapibus mauris enim, eu mollis purus tincidunt pretium. Curabitur interdum libero elit, sit amet fringilla eros egestas in. Duis nisl lacus, facilisis a justo vitae, posuere tempus dolor. Donec massa lectus, suscipit ut ligula consequat, aliquam sagittis odio. </p>
+					</div>
+
+					<div id="contenedor-introducir-comentario">
+						<h3>Deje su opinión</h3>
+						<p class="subtitulo-comentario-receta">
+							<span class="icon-user"></span>
+							<span>Ruben Rubio Martinez,</span>
+							<span><time datetime="2018-01-05 19:40">(Martes, 05/01/2018, 19:40h)</time></span>
+						</p>
+						<form>
+							<p>
+								TITULO:
+								<input type="text" name="titulo" 	maxlength="50" pattern="[a-zA-Z0-9]{1,49}$" title="minimo 1 caracter y maximo 50" reuired>
+							</p>
+						
+							<textarea required></textarea>
+							<input type="submit" name="enviar" value="Enviar comentario">
+						</form>
+						
 					</div>
 				</section>
 			</div>
@@ -105,9 +134,9 @@
 	        <!-- Final de las 3 redes sociales-->
 
 	        <!-- Comienzo de la parte del copyright y demas -->
-	        <p class="copyright">
+	         <p class="copyright">
 	        	<!-- Preguntar al maestro por que falla en el datetime -->
-	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html" style="text-decoration: none; color: #000;"><strong> Acerca de nosotros</strong></a>
+	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
 	        </p>
 	        
 	        

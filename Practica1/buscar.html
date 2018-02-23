@@ -41,8 +41,8 @@
 					<option>Fecha 📆</option>
 					<option>Valoración 🌟</option>
 				</select>
-				
-				Nombre de la receta:
+				<form>
+									Nombre de la receta:
 				<input type="text" name="nombre" placeholder="nombre de la receta">
 
 				Ingredientes:
@@ -61,6 +61,8 @@
 				<input type="number" name="tiempo" min="5" max="100" step="5" placeholder="tiempo de elaboración">
 
 				<button><span class="icon-search"></span></button>
+				</form>
+
 				
 			</p>
 		</div>
@@ -75,9 +77,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -93,9 +95,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -111,9 +113,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -129,9 +131,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -147,9 +149,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -165,9 +167,9 @@
 						<a href="receta.html"><h3>Coso vegano</h3></a>
 						<p><a href="buscar.html">By Ruben Rubio</a></p>
 						<p>
-							<span class="icon-comment" style="color: #2d572c">50</span>
-							<span class="icon-thumbs-up-alt" style="color: #0a0">1,4k</span>
-							<span class="icon-thumbs-down-alt" style="color: #a00">10</span>
+							<span class="icon-comment" id="boton-comentario">50</span>
+							<span class="icon-thumbs-up-alt" id="boton-like">1,4k</span>
+							<span class="icon-thumbs-down-alt" id="boton-dislike">10</span>
 						</p>
 					</header>
 					<img src="Images/receta-vegana.jpg" alt="receta">
@@ -218,9 +220,9 @@
 	        <!-- Final de las 3 redes sociales-->
 
 	        <!-- Comienzo de la parte del copyright y demas -->
-	        <p class="copyright">
+	         <p class="copyright">
 	        	<!-- Preguntar al maestro por que falla en el datetime -->
-	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html" style="text-decoration: none; color: #000;"><strong> Acerca de nosotros</strong></a>
+	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
 	        </p>
 	        
 	        
