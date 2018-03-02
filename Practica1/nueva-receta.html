@@ -33,34 +33,71 @@
 		</nav>
 
 	
-		<div id="contenedor-formulario-login-registro">
-			<section id="formulario-login-registro">	  
+		<div id="contenedor-nueva-receta">
+			<section id="formulario-nueva-receta">	  
 				<h2>NUEVA RECETA</h2>  
-		    <form>
+			    <form>
 
-			    <label for="nombre-receta"><strong>Nombre de la receta: </strong></label><input id="nombre-receta" type="text" name="nombre-receta" autofocus required  maxlength="20" size="15" ><br>
+				    <label for="nombre-receta">Nombre de la receta:</label><input id="nombre-receta" type="text" name="nombre-receta" autofocus required  maxlength="200"><br>
 
-			    <label for="numero-comensales"><strong>Número de comensales: </strong></label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
+				    <label for="numero-comensales">Número de comensales:</label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
 
-			    <label for="numero-comensales"><strong>Tiempo de elaboración: </strong></label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
-				
-				
-
-			   	<select>
-					<option>Facil</option>
-					<option>Medio</option>
-					<option>Dificil</option>		
-				</select> <br>
-				<textarea>
+				    <label for="numero-comensales">Tiempo de elaboración:</label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
 					
-				</textarea> <br>
-		      
+				   	<select>
+						<option>Facil</option>
+						<option>Medio</option>
+						<option>Dificil</option>		
+					</select> <br>
 
-		      <input type="submit" value="Enviar"><br><br>
-		      
+					<textarea></textarea> <br>
+			      
+					<ol contenteditable>
+						<li></li>
 
-		    </form>
-	  	</section>
+					</ol>
+					
+					<input type="text" name="ingrediente" id="texto-ingrediente">
+					<input type="button" name="enviar" value="Añadir ingrediente"><br>
+					
+
+					<div class="contenedor-imagen">
+							<picture>
+								<img src="Images/receta-vegana.jpg">
+								
+							</picture>
+							<textarea maxlength="250"></textarea>
+							<p><input type="button" name="" value="Seleccionar foto"><input type="button" name="" value="Eliminar foto"></p>
+					</div>
+
+					<div class="contenedor-imagen">
+						<picture>
+							<img src="Images/receta-vegana.jpg">
+							
+						</picture>
+						<textarea maxlength="250"></textarea>
+						<p><input type="button" name="" value="Seleccionar foto"><input type="button" name="" value="Eliminar foto"></p>
+						
+					</div>
+
+					<div class="contenedor-imagen">
+						<picture>
+							<img src="Images/receta-vegana.jpg">
+							
+						</picture>
+						<textarea maxlength="250"></textarea>
+						<p><input type="button" name="" value="Seleccionar foto"><input type="button" name="" value="Eliminar foto"></p>
+
+					</div>
+					
+					
+					<input type="button" name="" value="Añadir foto"><br>
+			      	<input type="submit" value="Enviar"><br>
+			      	
+
+			    </form>
+
+	  		</section>
 		</div>
 
 

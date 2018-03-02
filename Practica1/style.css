@@ -276,7 +276,7 @@ body>nav{
 	background-color: #D4D394;
 	font-family: 'Cinzel', serif;
 	color: #2d572c;
-	width: 50%;
+	width: 100%;
 	padding: 5%;
 	border:3px solid #fff;
 
@@ -337,7 +337,6 @@ body>nav{
 }
 #contenedor-todas-las-recetas-receta{
 	background-color: #F3F3CF;
-	
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -472,6 +471,129 @@ body>nav{
 
 
 /* Comieza la pagina de nueva receta */
+
+#contenedor-nueva-receta{
+	background-color: #F3F3CF;
+	text-align: center;
+
+}
+
+#formulario-nueva-receta{
+	display: inline-block;
+	text-align: center;
+	background-color: #D4D394;
+	font-family: 'Roboto Condensed', sans-serif;
+	color: #2d572c;
+	width: 100%;
+	padding: 5%;
+	border:3px solid #fff;
+
+}
+	#formulario-nueva-receta>h2{
+		margin:0;
+		padding-bottom: 1em;
+		font-size: 20px;
+		font-family: 'Cinzel', serif;
+	}
+	#formulario-nueva-receta>form{
+		display: inline-block;
+		justify-content: center;
+	}
+
+	
+	#formulario-nueva-receta>form>textarea{
+		display: block;
+		width: 100%;
+		min-height: 7em;
+		font-family: 'Roboto Condensed', sans-serif;
+		font-size: .8em;
+		padding:0;
+		text-align: left;
+	}
+
+		#formulario-nueva-receta>form>input{
+			color: #2d572c;
+			width: 100%;
+			max-width: 15em;
+
+		}
+
+		#formulario-nueva-receta>form>ol{
+			display: block;
+		}
+		
+		#formulario-nueva-receta>form>ol>li{
+			text-align: left;
+		}
+		
+
+		#formulario-nueva-receta>form>input[type="submit"]{
+			background-color: rgba(0,0,0,0);
+			width: 100%;
+			max-width: 10em;
+		}
+		#formulario-nueva-receta>form>input[type="button"]{
+			background-color: rgba(0,0,0,0);
+			margin: 1em 0;
+			
+			width: 100%;
+			max-width: 10em;
+		}
+
+		
+		.contenedor-imagen>textarea{
+			display: block;
+			width: 100%;
+			min-height: 7em;
+			font-family: 'Roboto Condensed', sans-serif;
+			font-size: .8em;
+			padding:0;
+			text-align: left;
+		}
+		.contenedor-imagen>picture>img{
+			width: 30%;
+			display: block-flex;
+			margin: 0 30%;
+
+		}
+		.contenedor-imagen>p>input[type="button"]{
+			background-color: rgba(0,0,0,0);
+			color: #2d572c;
+		}
+			#formulario-nueva-receta>form>input:hover{
+				background-color: #F4EAEA;
+				
+			}
+
+/* Parte del acerca de */
+
+#contenedor-acercade{
+	background-color: #F3F3CF;
+	text-align: center;
+
+}
+
+#section-acercade{
+	display: inline-block;
+	text-align: center;
+	background-color: #D4D394;
+	font-family: 'Cinzel', serif;
+	color: #2d572c;
+	width: 100%;
+	padding: 5%;
+	border:3px solid #fff;
+
+}
+	#section-acercade>h2{
+		margin:0;
+		padding-bottom: 1em;
+		font-family: 'Cinzel', serif;
+	}
+	#section-acercade>p{
+		font-family: 'Roboto Condensed', sans-serif;
+	}
+
+
 /* Clases randoms */
 
 #boton-like{
@@ -486,14 +608,11 @@ body>nav{
 
 /* Comienzan los media query */
 
-@media (max-width: 400px) {
+@media all and (max-width: 400px) {
 	#formulario-login{
 		padding:0;
 	}
-	#contenedor-formulario-login{
-		
-		
-	}
+
 
 }
 
@@ -513,6 +632,18 @@ body>nav{
 	body>nav>ul>li>a>span:nth-of-type(2){
 		display: none;
 	}
+
+	#formulario-nueva-receta{
+		display: inline-block;
+		text-align: center;
+		background-color: #D4D394;
+		font-family: 'Roboto Condensed', sans-serif;
+		color: #2d572c;
+		width: 50%;
+		padding: 5%;
+		border:3px solid #fff;
+
+	}
 }
 
 @media all and (min-width: 640px){
@@ -525,12 +656,24 @@ body>nav{
 		margin: 0;
 	}
 
+	#section-acercade{
+		
+		width: 50%;
+		
+
+	}
+	#formulario-login-registro{
+		
+		width: 50%;
+		
+
+	}
+
 
 }
 
 @media all and (min-width: 700px){
 	.contenedor-recetas-receta{
-
 		width: 600px;	
 	}
 
@@ -540,12 +683,14 @@ body>nav{
 		margin: 0;
 	
 	}
+
+	#formulario-nueva-receta>form{
+		display: inline;
+		justify-content: center;
+	}
 }
 
 @media all and (min-width: 900px){
-	label{
-		display:inline-block;
-	}
 
 
 	#formulario-login-registro>h2{
@@ -557,10 +702,7 @@ body>nav{
 }
 
 @media all and (min-width: 1200px){
-	label{
-		display: inline-block;
-		padding-top: 1em;
-	}
+
 	#formulario-login-registro>h2{
 		margin:0;
 		padding-bottom: 1em;
