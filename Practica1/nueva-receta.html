@@ -38,17 +38,22 @@
 				<h2>NUEVA RECETA</h2>  
 		    <form>
 
-		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
+			    <label for="nombre-receta"><strong>Nombre de la receta: </strong></label><input id="nombre-receta" type="text" name="nombre-receta" autofocus required  maxlength="20" size="15" ><br>
 
-		      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="psw" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+			    <label for="numero-comensales"><strong>Número de comensales: </strong></label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
 
-		      <label for="psw2"><strong>Confirma contraseña: </strong></label><input id="psw2" type="password" name="psw2" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+			    <label for="numero-comensales"><strong>Tiempo de elaboración: </strong></label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
+				
+				
 
-		      <label for="nombre"><strong>Nombre completo: </strong></label><input id="nombre" type="text" name="nombre" required title="Introduzca aqui su nombre completo"><br>
-
-		      <label for="email"><strong>E-mail: </strong></label><input id="email" type="email" name="email" required title="Introduzca aqui su correo electronico"><br>
-
-		      <label for="fecha"><strong>Fecha: </strong></label><input id="fecha" type="date" name="fecha" required title="Introduzca aqui su fecha de nacimiento"><br>
+			   	<select>
+					<option>Facil</option>
+					<option>Medio</option>
+					<option>Dificil</option>		
+				</select> <br>
+				<textarea>
+					
+				</textarea> <br>
 		      
 
 		      <input type="submit" value="Enviar"><br><br>
