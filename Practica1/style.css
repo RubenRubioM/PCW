@@ -1,7 +1,7 @@
 *{
 	box-sizing: border-box;
 }
-
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 label{
 	
 	display: block;
@@ -28,6 +28,7 @@ body{
 	width: auto;
 	font-family: 'Cinzel', serif;
 	text-align: center;
+
 }
 	#contenedor-header>img{
 		width: 100px;
@@ -53,38 +54,60 @@ body{
 
 /* Barra de navegacion global para todas las paginas */
 
-nav{
-	background-color: #e8eadd;
-	overflow: hidden;
-
-
+#ckbmenu{
+	display: none;
 }
-	nav > ul{
-		list-style: none;
+#ckbmenu:checked+nav>ul{
+	max-height: 15em;
+	
+}
+
+#ckbmenu:checked+nav>ul>li:first-of-type>label{
+	transform: rotate(-90deg);
+}
+
+body>nav{
+	overflow: hidden;
+}
+	
+	body>nav>ul{
+		margin: 0;
 		padding: 0;
-		margin:0;
+		list-style: none;
+		background-color: #F3F3CF;
+		text-align: center;
+		overflow: hidden;
+		max-height: 1.8em;
+
+		transition: max-height .5s ease-in-out;
 	}
 
-		nav > ul > li{
-			display: table;
-			margin-right: auto;
-			margin-left: auto;
-			
-			font-size: 18px;
-		}
+	body>nav>ul>li>a{
+		display: block;
+		text-decoration: none;
+		color:#2d572c;
+		font-family: 'Roboto Condensed', sans-serif;
+		padding: .4em 0 .4em .2em;
+	}
 
-			nav > ul > li > a{
-				padding: 0px 20px;
-				color: 	#2d572c;
-				text-decoration: none;
-				font-family: 'Roboto Condensed', sans-serif;
-			}
-			
-				nav>ul>li>a:hover{
-					background-color: #C5AE77;
-				}
+	body>nav>ul>li:first-of-type>label{
+		display: inline-block;
+		font-size: 1.8em;
+		font-weight: bold;
+		margin-left: .2em;
+		cursor:pointer;
 
+		transform: rotate(0deg);
+		transition: transform .5s linear;
+	}
 
+	body>nav>ul>li>a:hover{
+		background-color: #D4D394;
+
+	}
+	body>nav>ul>li>a>span:first-of-type{
+		margin-right: .5em;
+	}
 /* Footer comun de todas las paginas */
 
 #footer-comun {
@@ -446,6 +469,9 @@ nav{
 
 		
 	}
+
+
+/* Comieza la pagina de nueva receta */
 /* Clases randoms */
 
 #boton-like{
@@ -471,7 +497,38 @@ nav{
 
 }
 
-@media (min-width: 700px){
+@media all and (min-width: 480px){
+	body>nav>ul>li:first-of-type{
+		display: none;
+	}
+	body>nav>ul>li{
+		display: inline-block;
+		margin: 0 2%;
+
+	}
+
+	body>nav>ul>li>a{
+
+	}
+	body>nav>ul>li>a>span:nth-of-type(2){
+		display: none;
+	}
+}
+
+@media all and (min-width: 640px){
+	body>nav>ul>li>a>span:nth-of-type(2){
+		display: inline-block;
+
+	}
+	body>nav>ul>li{
+		display: inline-block;
+		margin: 0;
+	}
+
+
+}
+
+@media all and (min-width: 700px){
 	.contenedor-recetas-receta{
 
 		width: 600px;	
@@ -485,7 +542,7 @@ nav{
 	}
 }
 
-@media (min-width: 900px){
+@media all and (min-width: 900px){
 	label{
 		display:inline-block;
 	}
@@ -499,7 +556,7 @@ nav{
 	}
 }
 
-@media (min-width: 1200px){
+@media all and (min-width: 1200px){
 	label{
 		display: inline-block;
 		padding-top: 1em;
