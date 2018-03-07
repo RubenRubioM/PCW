@@ -188,10 +188,8 @@ body>nav{
 
 #contenedor-todas-las-recetas{
 	background-color: #F3F3CF;
+	overflow: hidden;
 	text-align: center;
-	width: auto;
-	height: auto;
-	float: left;
 	font-family: 'Cinzel', serif;
 	display: inline-flex;
 	flex-direction: row;
@@ -220,8 +218,12 @@ body>nav{
 					margin: 0;
 					
 				}
-						.contenedor-recetas>section>header>h3{
+						.contenedor-recetas>section>header>a>h3{
 							margin: 0;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							/*Poner esto en las cosas*/
 						}	
 						.contenedor-recetas>section>header>a{
 							color: #2d572c; 
