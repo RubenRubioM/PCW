@@ -3,7 +3,7 @@
 	<head>
 
 		<meta charset="utf-8">
-		<link href="https://fonts.googleapis.com/css?family=Cinzel" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Cinzel|Roboto+Condensed" rel="stylesheet"> 
 		<link rel="stylesheet" type="text/css" href="css/fontello.css">
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="with=device-width, initial-scale=1.0">
@@ -43,25 +43,26 @@
 					<option>Valoración 🌟</option>
 				</select>
 				<form>
-									Nombre de la receta:
-				<input type="text" name="nombre" placeholder="nombre de la receta">
-
-				Ingredientes:
-				<input type="text" name="ingredientes" placeholder="ingredientes">
-
-				Nº de comensales
-				<input type="number" name="comensales" min="1" placeholder="nº de comensales">
-
-				Dificultad:
-				<input type="number" name="dificultad" min="1" max="5" placeholder="dificultad">
-
-				Autor:
-				<input type="text" name="autor" placeholder="nombre del autor">
-
-				Tiempo de elaboración:
-				<input type="number" name="tiempo" min="5" max="100" step="5" placeholder="tiempo de elaboración">
-
-				<button><span class="icon-search"></span></button>
+					<label for="nombre">Nombre de la receta:
+					<input id="nombre" type="text" name="nombre" placeholder="nombre de la receta"></label>
+				
+					<label for="ingredientes">Ingredientes:
+					<input id="ingredientes" type="text" name="ingredientes" placeholder="ingredientes"></label>
+					
+					<label for="comensales">Nº de comensales
+					<input id="comensales" type="number" name="comensales" min="1" placeholder="nº de comensales"></label>
+					
+					<label for="dificultad">Dificultad:
+					<input id="dificultad" type="number" name="dificultad" min="1" max="5" placeholder="dificultad"></label>
+					
+					<label for="autor">Autor:
+					<input id="autor" type="text" name="autor" placeholder="nombre del autor"></label>
+					
+					<label for="elaboracion">Tiempo de elaboración:
+					<input id="elaboracion" type="number" name="tiempo" min="5" max="100" step="5" placeholder="tiempo de elaboración"></label>
+					
+					<br>
+					<button><span class="icon-search"></span></button>
 				</form>
 
 				

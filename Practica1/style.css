@@ -1,12 +1,8 @@
 *{
 	box-sizing: border-box;
 }
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
-@import url('https://fonts.googleapis.com/css?family=Cinzel');
-label{
-	
-	display: block;
-}
+
+
 
 body{
 	min-width: 320px;
@@ -325,14 +321,23 @@ body>nav{
 	font-family: 'Roboto Condensed', sans-serif;
 	text-align: center;
 	
-	display: block;
 }
 
 	#contenedor-buscador-recetas-buscar>p{
 		margin: 0;
 		border-bottom: .2em solid white;
 		padding: .5em 0;
+
+
 	}
+
+		#contenedor-buscador-recetas-buscar>form>label{
+			display: inline-flex;
+			flex-direction: column;
+			flex-wrap: wrap;
+			justify-content: center;
+			
+		}
 
 /* Comienza la pagina receta */
 
@@ -461,6 +466,10 @@ body>nav{
 		font-family: 'Roboto Condensed', sans-serif;
 	}
 
+	 #contenedor-introducir-comentario>form>p>input[type="text"]:hover{
+	 	background-color: #D1E548;
+	 }
+
 	#contenedor-introducir-comentario>form>textarea{
 		display: block;
 		width: 100%;
@@ -471,6 +480,9 @@ body>nav{
 		text-align: left;
 
 	}
+		#contenedor-introducir-comentario>form>textarea:hover{
+			background-color: #D1E548;
+		}
 	#contenedor-introducir-comentario>form>input[type="submit"]{
 		background-color: rgba(0,0,0,0);
 		color: #2d572c;
@@ -530,6 +542,9 @@ body>nav{
 		padding:0;
 		text-align: left;
 	}
+		#formulario-nueva-receta>form>textarea:hover{
+			background-color: #D1E548;
+		}
 
 		#formulario-nueva-receta>form>input{
 			color: #2d572c;
@@ -569,12 +584,16 @@ body>nav{
 		.contenedor-imagen>textarea{
 			display: block;
 			width: 100%;
-			min-height: 7em;
+
+			min-height: 5em;
 			font-family: 'Roboto Condensed', sans-serif;
 			font-size: .8em;
 			padding:0;
 			text-align: left;
 		}
+			.contenedor-imagen>textarea:hover{
+				background-color: #D1E548;
+			}
 		.contenedor-imagen>picture>img{
 			width: 30%;
 			display: block-flex;
