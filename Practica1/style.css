@@ -430,7 +430,7 @@ body>nav{
 								}
 
 
-#contenedor-receta-comentarios{
+.contenedor-receta-comentarios{
 	border-top: 5px solid white;
 	font-family: 'Roboto Condensed', sans-serif;
 
@@ -643,13 +643,13 @@ body>nav{
 
 /* Clases randoms */
 
-#boton-like{
+.boton-like{
 	color: #0a0;
 }
-#boton-comentario{
+.boton-comentario{
 	color: #2d572c;
 }
-#boton-dislike{
+.boton-dislike{
 	color: #a00;
 }
 
