@@ -2,6 +2,7 @@
 	box-sizing: border-box;
 }
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
+@import url('https://fonts.googleapis.com/css?family=Cinzel');
 label{
 	
 	display: block;
@@ -68,6 +69,7 @@ body{
 
 body>nav{
 	overflow: hidden;
+	border-bottom: .2em solid white;
 }
 	
 	body>nav>ul{
@@ -80,6 +82,11 @@ body>nav{
 		max-height: 1.8em;
 
 		transition: max-height .5s ease-in-out;
+	}
+
+	body>nav>ul>li{
+		text-align: center;
+		font-weight: bold;
 	}
 
 	body>nav>ul>li>a{
@@ -182,6 +189,9 @@ body>nav{
 
 	#contenedor-buscador-recetas>p{
 		margin: 0;
+		border-bottom: .2em solid white;
+		padding-bottom: 1em;
+
 	}
 
 
@@ -220,6 +230,7 @@ body>nav{
 				}
 						.contenedor-recetas>section>header>a>h3{
 							margin: 0;
+							padding: .5em .5em;
 							overflow: hidden;
 							text-overflow: ellipsis;
 							white-space: nowrap;
@@ -313,12 +324,14 @@ body>nav{
 	background-color: #F3F3CF;
 	font-family: 'Roboto Condensed', sans-serif;
 	text-align: center;
-	padding-top: 1em;
+	
 	display: block;
 }
 
 	#contenedor-buscador-recetas-buscar>p{
 		margin: 0;
+		border-bottom: .2em solid white;
+		padding: .5em 0;
 	}
 
 /* Comienza la pagina receta */
@@ -477,6 +490,7 @@ body>nav{
 #contenedor-nueva-receta{
 	background-color: #F3F3CF;
 	text-align: center;
+	padding-top: 1em;
 
 }
 
@@ -494,7 +508,7 @@ body>nav{
 	#formulario-nueva-receta>h2{
 		margin:0;
 		padding-bottom: 1em;
-		font-size: 20px;
+		font-size: 30px;
 		font-family: 'Cinzel', serif;
 	}
 	#formulario-nueva-receta>form{
@@ -502,7 +516,11 @@ body>nav{
 		justify-content: center;
 	}
 
-	
+	#texto-elaboracion{
+		display: block;
+		text-align: left;
+		font-weight: bold;
+	}
 	#formulario-nueva-receta>form>textarea{
 		display: block;
 		width: 100%;
@@ -519,7 +537,12 @@ body>nav{
 			max-width: 15em;
 
 		}
-
+		
+		#texto-ingredientes{
+			display: block;
+			text-align: center;
+			font-weight: bold;
+		}
 		#formulario-nueva-receta>form>ol{
 			display: block;
 		}
