@@ -1,0 +1,9 @@
+Quitar lo de ordenar de manera ascendente, descendente, etc...
+
+window.location.search  nos devuelve la url
+
+En la busqueda del index y cuando pinchas en el autor lo suyo es redirigir a la pagina buscar y ahi mostrar los resultados.
+
+Añadir en la pagina buscar el numero de resultados encontrados en la busqueda
+
+Meter un input de tipo reset en el form de buscar
