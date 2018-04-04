@@ -7,10 +7,11 @@
 		<link rel="stylesheet" type="text/css" href="css/fontello.css">
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="with=device-width, initial-scale=1.0">
+		<script src="codigo.js"></script>
 		<title>Inicio</title>
 
 	</head>
-	<body>
+	<body onload="arranque();peticionRecetasIndex();">
 		<header>
 			<div id="contenedor-header">
 				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
@@ -27,7 +28,7 @@
 				<li><a  href="index.html"><span class="icon-home" aria-hidden="true"></span><span>Inicio</span></a></li>
 				<li><a href="buscar.html"><span class="icon-search" aria-hidden="true"></span><span>Buscar</span></a></li>
 				<li><a href="login.html"><span class="icon-user" aria-hidden="true"></span><span>Login</span></a></li>
-				<li><a href="#"><span class="icon-user-times" aria-hidden="true"></span><span>Logout</span></a></li>
+				<li onclick="cerrar();"><a href="#"><span class="icon-user-times" aria-hidden="true"></span><span>Logout</span></a></li>
 				<li><a href="registro.html"><span class="icon-user-plus" aria-hidden="true"></span><span>Registro</span></a></li>
 				<li><a href="nueva-receta.html"><span class="icon-plus-circled" aria-hidden="true"></span><span>Nueva receta</span></a></li>
 			</ul>
@@ -35,14 +36,9 @@
 
 		<!-- El contenedor del buscador de arriba de las recetas -->
 		<div id="contenedor-buscador-recetas">
-			<p><strong>Ordenar las recetas de manera: </strong>
-				<select>
-					<option>Ascendente ▲ </option>
-					<option>Descendente ▼</option>
-					<option>Fecha 📆</option>
-					<option>Valoración 🌟</option>
-				</select>
-				<input type="text" name="buscar" placeholder="Introduzca su busqueda">
+			<p><strong>Introduzca el nombre de lo que desea buscar: </strong>
+				
+				<input type="text" name="buscar">
 				<button><span class="icon-search"></span></button>
 				
 			</p>
@@ -52,113 +48,7 @@
 		<!-- El contenedor para las recetas -->
 
 		<div id="contenedor-todas-las-recetas">
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
 			
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
 			
 
 			
@@ -168,15 +58,15 @@
 			<!-- footer de este div para la barra de navegacion -->
 			<div id="contenedor-recetas-navegacion">
 				<p>
-					<a href="#"><span class="icon-to-start-alt"></span></a>
+					<a href="#" onclick="primeraPagina();"><span class="icon-to-start-alt"></span></a>
 
-					<a href="#"><span class="icon-left-big"></span></a>
+					<a href="#" onclick="boton_atras();"><span class="icon-left-big"></span></a>
 
-					1/10
+					<span></span>
 
-					<a href="#"><span class="icon-right-big"></span></a>
+					<a href="#" onclick="boton_adelante();"><span class="icon-right-big"></span></a>
 
-					<a href="#"><span class="icon-to-end-alt"></span></a>
+					<a href="#" onclick="ultimaPagina();"><span class="icon-to-end-alt"></span></a>
 				</p>
 				
 			</div>

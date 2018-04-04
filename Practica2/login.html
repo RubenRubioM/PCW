@@ -7,10 +7,11 @@
 		<link rel="stylesheet" type="text/css" href="css/fontello.css">
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="with=device-width, initial-scale=1.0">
+		<script src="codigo.js"></script>
 		<title>Login</title>
 
 	</head>
-	<body>
+	<body onload="arranque();">
 		<header>
 			<div id="contenedor-header">
 				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
@@ -36,7 +37,7 @@
 		<div id="contenedor-formulario-login-registro">
 			<section id="formulario-login-registro">	  
 				<h2>LOGIN</h2>  
-		    <form>
+		    <form onsubmit="return peticionAJAX_POST('/Practica2/rest/login/')">
 
 		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required placeholder="usuario  " pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
 
