@@ -11,7 +11,7 @@
 		<title>Buscar</title>
 
 	</head>
-	<body>
+	<body onload="arranque();rellenarCamposBusqueda();">
 		<header>
 			<div id="contenedor-header">
 				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
@@ -36,13 +36,8 @@
 	
 		<!-- El contenedor del buscador de arriba de las recetas -->
 		<div id="contenedor-buscador-recetas-buscar">
-			<p><strong>Ordenar las recetas de manera: </strong>
-				<select>
-					<option>Ascendente ▲</option>
-					<option>Descendente ▼</option>
-					<option>Fecha 📆</option>
-					<option>Valoración 🌟</option>
-				</select>
+			
+				
 				<form>
 					<label for="nombre">Nombre de la receta:
 					<input id="nombre" type="text" name="nombre" placeholder="nombre de la receta"></label>
@@ -63,7 +58,8 @@
 					<input id="elaboracion" type="number" name="tiempo" min="5" max="100" step="5" placeholder="tiempo de elaboración"></label>
 					
 					<br>
-					<button><span class="icon-search"></span></button>
+					<input onsubmit="realizarBusqueda();" type="submit" name="Enviar">
+					<input type="reset" name="">
 				</form>
 
 				
@@ -74,113 +70,6 @@
 		<!-- El contenedor para las recetas -->
 
 		<div id="contenedor-todas-las-recetas">
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-			
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
-
-			<div class="contenedor-recetas">
-				<section>
-					<header>
-						<a href="receta.html"><h3>Coso vegano</h3></a>
-						<p><a href="buscar.html">By Ruben Rubio</a></p>
-						<p>
-							<span class="icon-comment boton-comentario" >50</span>
-							<span class="icon-thumbs-up-alt boton-like" >1,4k</span>
-							<span class="icon-thumbs-down-alt boton-dislike">10</span>
-						</p>
-					</header>
-					<img src="Images/receta-vegana.jpg" alt="receta">
-					<footer>
-						<p><time datetime="2018-01-10">10 de Enero de 2018</time></p>
-					</footer>
-				</section>
-			</div>
 			
 
 			

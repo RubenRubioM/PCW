@@ -143,13 +143,14 @@ function crearRecetasIndex(){
 						</footer>
 					</section>
 				</div>`;
-
+			
 			div.appendChild(tarjeta); //Añadimos la receta al contenedor
 			console.log('Añadida receta nº '+ (receta_imprimir+1));
 			recetas_en_pagina++;
 			receta_imprimir++; //Aumentamos el apuntador al array de recetas
 
 		}else{
+			console.log('break');
 			break;
 		}
 		
@@ -213,9 +214,69 @@ function ultimaPagina(){
 function borrar_recetas_index(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
 
-	while(div.firstChild!=null){
-		div.firstChild.remove();
+	while(div.hasChildNodes()){
+		
+		div.removeChild(div.firstChild);
 	}
 	recetas_en_pagina = 0;
 	console.log('Todas las recetas han sido borradas');
+}
+
+/*
+
+Funciones para la pagina buscar.html
+
+*/
+function rellenarCamposBusqueda(){
+	console.log('Comprobamos si tenemos parametros en la URL...');
+	var url = document.location.href;
+
+	if(url.indexOf('?') > 0){
+		console.log('Existen argumentos...');
+		var cadena_argumentos = url.split('?')[1];
+		var argumentos = cadena_argumentos.split('&');//Aqui guardamos todos 													los parametros
+		
+		//Rellenamos los campos de la busqueda
+		var titulo 		 = document.getElementById("nombre"),
+			ingredientes = document.getElementById("ingredientes"),
+			comensales	 = document.getElementById("comensales"),
+			dificultad	 = document.getElementById("dificultad"),
+			autor 		 = document.getElementById("autor"),
+			elaboracion	 = document.getElementById("elaboracion");
+
+		
+		for(var i=0; i<argumentos.length; i++){
+
+			//extraemos el prefijo (t,,n,i,e,a,d,c,di,df)
+
+			let tipo_y_parametro = argumentos[i].split('=');
+
+			//Titulo y elaboracion
+			if(tipo_y_parametro[0]=='t'){
+				console.log('Argumentos de tipo T...');
+				titulo = tipo_y_parametro[1];
+				elaboracion = tipo_y_parametro[1];
+			}
+			
+			//Titulo
+			if(tipo_y_parametro[0]=='n'){
+				console.log('Argumentos de tipo E...');
+				titulo = tipo_y_parametro[1];
+			}
+		}
+	}else{
+		console.log('No existe ningun argumento...');
+		peticionRecetasIndex();
+	}
+}
+
+function realizarBusqueda(){
+	let titulo 		 = document.getElementById("nombre").value,
+		ingredientes = document.getElementById("ingredientes").value,
+		comensales	 = document.getElementById("comensales").value,
+		dificultad	 = document.getElementById("dificultad").value,
+		autor 		 = document.getElementById("autor").value,
+		elaboracion	 = document.getElementById("elaboracion").value;
+
+	console.log(titulo + ingredientes + comensales + dificultad + autor + elaboracion);
 }
