@@ -41,6 +41,9 @@
 				<form>
 					<label for="nombre">Nombre de la receta:
 					<input id="nombre" type="text" name="nombre" placeholder="nombre de la receta"></label>
+
+					<label for="descripcion">Descripcion de la receta:
+					<input id="descripcion" type="text" name="descripcion" placeholder="descripcion"></label>
 				
 					<label for="ingredientes">Ingredientes:
 					<input id="ingredientes" type="text" name="ingredientes" placeholder="ingredientes"></label>
@@ -49,7 +52,7 @@
 					<input id="comensales" type="number" name="comensales" min="1" placeholder="nº de comensales"></label>
 					
 					<label for="dificultad">Dificultad:
-					<input id="dificultad" type="number" name="dificultad" min="1" max="5" placeholder="dificultad"></label>
+					<input id="dificultad" type="number" name="dificultad" min="1" max="3" placeholder="dificultad"></label>
 					
 					<label for="autor">Autor:
 					<input id="autor" type="text" name="autor" placeholder="nombre del autor"></label>
@@ -65,10 +68,10 @@
 				
 			
 		</div>
-		
+		<p id="total-busqueda">Numero total de recetas encontradas: </p>	
 
 		<!-- El contenedor para las recetas -->
-
+		
 		<div id="contenedor-todas-las-recetas">
 			
 
@@ -76,22 +79,24 @@
 			
 		</div>
 		
-			<!-- footer de este div para la barra de navegacion -->
-			<div id="contenedor-recetas-navegacion">
-				<p>
-					<a href="#"><span class="icon-to-start-alt"></span></a>
+		
+		</div>
+			
+		<!-- footer de este div para la barra de navegacion -->
+		<div id="contenedor-recetas-navegacion">
+			<p>
+				<a href="javascript:void(0);" onclick="primeraPagina();"><span class="icon-to-start-alt"></span></a>
 
-					<a href="#"><span class="icon-left-big"></span></a>
+				<a href="javascript:void(0);" onclick="boton_atras();"><span class="icon-left-big"></span></a>
 
-					1/10
+				<span></span>
 
-					<a href="#"><span class="icon-right-big"></span></a>
+				<a href="javascript:void(0);" onclick="boton_adelante();"><span class="icon-right-big"></span></a>
 
-					<a href="#"><span class="icon-to-end-alt"></span></a>
-				</p>
-				
-			</div>
-
+				<a href="javascript:void(0);" onclick="ultimaPagina();"><span class="icon-to-end-alt"></span></a>
+			</p>
+			
+		</div>
 
  		<footer id="footer-comun">
 	        <div class="social-footer">

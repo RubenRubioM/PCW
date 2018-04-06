@@ -7,3 +7,12 @@ En la busqueda del index y cuando pinchas en el autor lo suyo es redirigir a la 
 Añadir en la pagina buscar el numero de resultados encontrados en la busqueda
 
 Meter un input de tipo reset en el form de buscar
+
+
+/*
+
+----------DUDAS--------------
+
+En la pagina de buscar es obligatorio mostrar solo 6 y hacer una botonera?
+
+*/

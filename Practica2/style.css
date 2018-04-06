@@ -342,6 +342,13 @@ body>nav{
 			
 		}
 
+#total-busqueda{
+	background-color: #F3F3CF;
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	margin:0;
+	padding-top: 1em;
+}
 /* Comienza la pagina receta */
 
 #numero-comensales{

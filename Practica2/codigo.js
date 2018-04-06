@@ -20,8 +20,8 @@ function comprobar_storage()
 	}
 }
 
-function arranque()
-{
+function arranque(){
+
 	comp=comprobar_storage();
 	if(comp)
 	{
@@ -79,7 +79,7 @@ var pagina_actual = 1; //Pagina del index en la que estamos
 var recetas; //archivo JSON con todas las recetas
 var receta_imprimir = 0; //Receta del array que vamos a imprimir
 var recetas_en_pagina = 0; //Recetas que se estan mostrando actualmente
-
+const recetas_por_pagina = 6;
 //Pedimos todas las recetas al servidor
 function peticionRecetasIndex(){
 	var obj = new XMLHttpRequest(),
@@ -89,9 +89,7 @@ function peticionRecetasIndex(){
 	obj.onload = function(){
 		recetas = JSON.parse(obj.responseText);
 		crearRecetasIndex();
-		Modificar_botonera_Index();
-		console.log(recetas);
-		
+		Modificar_botonera_Index();		
 	};
 
 	obj.onerror = function(){
@@ -108,7 +106,7 @@ function peticionRecetasIndex(){
 function crearRecetasIndex(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
 	
-	for(var i = 0; i<6;i++){
+	for(var i = 0; i<recetas_por_pagina;i++){
 
 		//la receta a imprimir no se pasa de las totales
 		if(receta_imprimir<recetas.FILAS.length){
@@ -150,7 +148,7 @@ function crearRecetasIndex(){
 			receta_imprimir++; //Aumentamos el apuntador al array de recetas
 
 		}else{
-			console.log('break');
+			
 			break;
 		}
 		
@@ -159,7 +157,7 @@ function crearRecetasIndex(){
 
 //Modifica el numero actual de pagina de la botonera del index
 function Modificar_botonera_Index(){
-	paginas_totales = Math.ceil(recetas.FILAS.length/6);
+	paginas_totales = Math.ceil(recetas.FILAS.length/recetas_por_pagina);
 	let botonera = document.querySelector('#contenedor-recetas-navegacion>p>span');
 	
 	botonera.innerHTML = `${pagina_actual}/${paginas_totales}`;	
@@ -170,6 +168,7 @@ function primeraPagina(){
 	if(pagina_actual!=1){
 		receta_imprimir=0;
 		pagina_actual = 1;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
 		borrar_recetas_index();
 		crearRecetasIndex();
 		Modificar_botonera_Index();
@@ -180,10 +179,11 @@ function primeraPagina(){
 function boton_atras(){
 	if(pagina_actual>1){
 		
-		receta_imprimir = receta_imprimir-(recetas_en_pagina + 6);
-		console.log(receta_imprimir);
+		receta_imprimir = receta_imprimir-(recetas_en_pagina + recetas_por_pagina);
+		
 		borrar_recetas_index();		
 		pagina_actual--;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
 		crearRecetasIndex();
 		Modificar_botonera_Index();
 	}
@@ -194,6 +194,7 @@ function boton_adelante(){
 	if(pagina_actual<paginas_totales){
 		borrar_recetas_index();
 		pagina_actual++;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
 		crearRecetasIndex();
 		Modificar_botonera_Index();
 	}
@@ -203,8 +204,9 @@ function boton_adelante(){
 function ultimaPagina(){
 	if(pagina_actual!=paginas_totales){
 		pagina_actual=paginas_totales;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
 		borrar_recetas_index();
-		receta_imprimir= ((paginas_totales-1)*6);
+		receta_imprimir= ((paginas_totales-1)*recetas_por_pagina);
 		crearRecetasIndex();
 		Modificar_botonera_Index();
 	}
@@ -219,7 +221,7 @@ function borrar_recetas_index(){
 		div.removeChild(div.firstChild);
 	}
 	recetas_en_pagina = 0;
-	console.log('Todas las recetas han sido borradas');
+	console.log('Todas las recetas han sido borradas...');
 }
 
 /*
@@ -227,6 +229,7 @@ function borrar_recetas_index(){
 Funciones para la pagina buscar.html
 
 */
+
 function rellenarCamposBusqueda(){
 	console.log('Comprobamos si tenemos parametros en la URL...');
 	var url = document.location.href;
@@ -239,10 +242,11 @@ function rellenarCamposBusqueda(){
 		//Rellenamos los campos de la busqueda
 		var titulo 		 = document.getElementById("nombre"),
 			ingredientes = document.getElementById("ingredientes"),
+			descripcion  = document.getElementById("descripcion"),
 			comensales	 = document.getElementById("comensales"),
 			dificultad	 = document.getElementById("dificultad"),
 			autor 		 = document.getElementById("autor"),
-			elaboracion	 = document.getElementById("elaboracion");
+			tiempo_elaboracion	 = document.getElementById("elaboracion");
 
 		
 		for(var i=0; i<argumentos.length; i++){
@@ -250,33 +254,137 @@ function rellenarCamposBusqueda(){
 			//extraemos el prefijo (t,,n,i,e,a,d,c,di,df)
 
 			let tipo_y_parametro = argumentos[i].split('=');
-
+			
 			//Titulo y elaboracion
 			if(tipo_y_parametro[0]=='t'){
-				console.log('Argumentos de tipo T...');
-				titulo = tipo_y_parametro[1];
-				elaboracion = tipo_y_parametro[1];
+				
+				titulo.value = tipo_y_parametro[1];
+				elaboracion.value = tipo_y_parametro[1];
 			}
 			
 			//Titulo
 			if(tipo_y_parametro[0]=='n'){
-				console.log('Argumentos de tipo E...');
-				titulo = tipo_y_parametro[1];
+				
+				titulo.value = tipo_y_parametro[1];
 			}
+
+			//Ingrediente
+			if(tipo_y_parametro[0]=='i'){
+				ingredientes.value = tipo_y_parametro[1];
+			}
+
+			//Descripcion
+			if(tipo_y_parametro[0]=='e'){
+				descripcion.value = tipo_y_parametro[1];
+			}
+
+			//Autor
+			if(tipo_y_parametro[0]=='a'){
+				autor.value = tipo_y_parametro[1];
+			}
+
+			//Dificultad
+			if(tipo_y_parametro[0]=='d'){
+				dificultad.value = tipo_y_parametro[1];
+			}
+
+			//Numero de comensales
+			if(tipo_y_parametro[0]=='c'){
+				comensales.value = tipo_y_parametro[1];
+			}
+
+			//Minutos
+			if(tipo_y_parametro[0]=='di' || tipo_y_parametro[0]=='df'){
+				tiempo_elaboracion.value = tipo_y_parametro[1];
+			}
+
+
 		}
+		//Acaba el for
+		realizarBusqueda();
 	}else{
 		console.log('No existe ningun argumento...');
-		peticionRecetasIndex();
+		peticionRecetasBuscarSinArgumentos();
 	}
 }
 
 function realizarBusqueda(){
 	let titulo 		 = document.getElementById("nombre").value,
 		ingredientes = document.getElementById("ingredientes").value,
+		descripcion  = document.getElementById("descripcion").value,
 		comensales	 = document.getElementById("comensales").value,
 		dificultad	 = document.getElementById("dificultad").value,
 		autor 		 = document.getElementById("autor").value,
-		elaboracion	 = document.getElementById("elaboracion").value;
+		tiempo_elaboracion	 = document.getElementById("elaboracion").value,
+		url 		 = 'rest/receta/?';
 
-	console.log(titulo + ingredientes + comensales + dificultad + autor + elaboracion);
+	if(titulo!=""){
+		url += 'n='+titulo +'&';
+	}
+	if(ingredientes!=""){
+		url += 'i='+ingredientes+'&';
+	}
+	if(descripcion!=""){
+		url += 'e='+descripcion+'&';
+	}
+	if(comensales!=""){
+		url += 'c='+comensales+'&';
+	}
+	if(dificultad!=""){
+		url += 'd='+comensales+'&';
+	}
+	if(autor!=""){
+		url += 'a='+autor+'&';
+	}
+	if(tiempo_elaboracion!=""){
+		url +='di='+tiempo_elaboracion+'&df='+tiempo_elaboracion+'&';
+	}
+
+	peticionBuscarConArgumentos(url);
+
 }
+
+//Hacemos una peticion al servidor con los parametros seleccionados
+function peticionBuscarConArgumentos(url){
+	var obj = new XMLHttpRequest();
+
+	obj.open('GET',url,true);
+	obj.onload =function(){
+		recetas = JSON.parse(obj.responseText);
+		Modificar_botonera_Index();
+		crearRecetasIndex();
+		let texto_numero_resultados = document.getElementById('total-busqueda');
+		texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	}
+
+	obj.send();
+
+}
+
+//Pedimos todas las recetas al servidor
+function peticionRecetasBuscarSinArgumentos(){
+	var obj = new XMLHttpRequest(),
+		url = 'rest/receta/';
+	
+	obj.open('GET',url,true);
+	obj.onload = function(){
+		recetas = JSON.parse(obj.responseText);
+		peticionRecetasIndex();
+		let texto_numero_resultados = document.getElementById('total-busqueda');
+		texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
+
+	
+	obj.send();
+	
+
+}
+
