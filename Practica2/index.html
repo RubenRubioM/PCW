@@ -11,7 +11,7 @@
 		<title>Inicio</title>
 
 	</head>
-	<body onload="arranque();peticionRecetasIndex();">
+	<body onload="arranque();peticionRecetas('rest/receta/');">
 		<header>
 			<div id="contenedor-header">
 				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
@@ -39,7 +39,8 @@
 			<p><strong>Introduzca el nombre de lo que desea buscar: </strong>
 				
 				<input type="text" name="buscar">
-				<button><span class="icon-search"></span></button>
+				<button onclick="busquedaRapidaIndex();"><span class="icon-search"></span></button>
+				
 				
 			</p>
 		</div>
@@ -49,10 +50,7 @@
 
 		<div id="contenedor-todas-las-recetas">
 			
-			
-
-			
-			
+				
 		</div>
 		
 			<!-- footer de este div para la barra de navegacion -->

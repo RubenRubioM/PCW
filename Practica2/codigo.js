@@ -1,11 +1,50 @@
 /*
 
+Variables globales
+
+*/
+var paginas_totales; //Total de paginas que tendra el index
+var pagina_actual = 1; //Pagina del index en la que estamos
+var recetas; //archivo JSON con todas las recetas
+var receta_imprimir = 0; //Receta del array que vamos a imprimir
+var recetas_en_pagina = 0; //Recetas que se estan mostrando actualmente
+const recetas_por_pagina = 6; //Recetas a mostrar por pagina
+
+/*
+
 Funciones globales
 
 */
 
-function comprobar_storage()
-{
+//Pedimos las recetas y las montamos en index y buscar
+function peticionRecetas(url){
+	var obj = new XMLHttpRequest();
+	
+	obj.open('GET',url,true);
+	obj.onload = function(){
+		recetas = JSON.parse(obj.responseText);
+		crearRecetasIndex();
+		let texto_numero_resultados = document.getElementById('total-busqueda');
+		if(texto_numero_resultados!=null){
+			texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
+		}
+		
+
+
+		Modificar_botonera_Index();		
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
+
+	
+	obj.send();
+}
+
+
+function comprobar_storage(){
+
 	if(typeof(Storage)!=="undefined")
 	{
 		console.log("session storage compatible");
@@ -19,6 +58,7 @@ function comprobar_storage()
 
 	}
 }
+
 
 function arranque(){
 
@@ -58,15 +98,11 @@ function arranque(){
 }
 
 
+function cerrar(){
 
-function cerrar()
-{
 	sessionStorage.removeItem("login_session");
 	redireccion();
 }
-
-
-
 
 /*
 
@@ -74,33 +110,7 @@ Funciones para el index.html
 
 */
 
-var paginas_totales; //Total de paginas que tendra el index
-var pagina_actual = 1; //Pagina del index en la que estamos
-var recetas; //archivo JSON con todas las recetas
-var receta_imprimir = 0; //Receta del array que vamos a imprimir
-var recetas_en_pagina = 0; //Recetas que se estan mostrando actualmente
-const recetas_por_pagina = 6;
-//Pedimos todas las recetas al servidor
-function peticionRecetasIndex(){
-	var obj = new XMLHttpRequest(),
-		url = 'rest/receta/';
-	
-	obj.open('GET',url,true);
-	obj.onload = function(){
-		recetas = JSON.parse(obj.responseText);
-		crearRecetasIndex();
-		Modificar_botonera_Index();		
-	};
 
-	obj.onerror = function(){
-		console.log('ERROR');
-	};
-
-	
-	obj.send();
-	
-
-}
 
 //Creamos los nodos donde van a ir las recetas
 function crearRecetasIndex(){
@@ -121,10 +131,9 @@ function crearRecetasIndex(){
 				desc_foto	= recetas.FILAS[receta_imprimir].descripcion_foto,
 				fecha		= recetas.FILAS[receta_imprimir].fecha;
 			
-			//Creamos el nodo de la receta
-			var tarjeta = document.createElement('div');
-			tarjeta.innerHTML =
-			 `<div class="contenedor-recetas">
+			//Creamos la tarjeta
+			var tarjeta = 
+				`<div class="contenedor-recetas">
 					<section>
 						<header>
 							<a href="receta.html"><h3>${titulo}</h3></a>
@@ -141,8 +150,8 @@ function crearRecetasIndex(){
 						</footer>
 					</section>
 				</div>`;
-			
-			div.appendChild(tarjeta); //Añadimos la receta al contenedor
+
+			div.innerHTML += tarjeta;
 			console.log('Añadida receta nº '+ (receta_imprimir+1));
 			recetas_en_pagina++;
 			receta_imprimir++; //Aumentamos el apuntador al array de recetas
@@ -224,9 +233,37 @@ function borrar_recetas_index(){
 	console.log('Todas las recetas han sido borradas...');
 }
 
+
+function busquedaRapidaIndex(){
+	let parametros = document.querySelector('#contenedor-buscador-recetas>p>input').value;
+	console.log(parametros);
+
+	location.href='/PCW/Practica2/buscar.html?t='+parametros;
+}
 /*
 
 Funciones para la pagina buscar.html
+
+*/
+
+
+/*  Esta funcion se llama en el onload de buscar.html
+
+	Esta funcion lee la url y autorellena los campos del formulario.
+
+	Cuando viene de un submit la url viene con los prefijos del formulario
+	(nombre,descripcion,ingredientes,comensales,dificultad,autor y elaboracion). 
+
+	Con lo cual cuando lleguemos aqui mediante el Index.html le enviaremos una url tal que ('?nombre=autor').
+*/
+
+/*
+	
+	El evento onsubmit lo que hace es recargar la página agregando a la url los parametros tal que el tag name seguido del valor
+
+	<input id="nombre" type="text" name="nombre" placeholder="nombre de la receta">
+
+	nombre=valor&
 
 */
 
@@ -248,7 +285,7 @@ function rellenarCamposBusqueda(){
 			autor 		 = document.getElementById("autor"),
 			tiempo_elaboracion	 = document.getElementById("elaboracion");
 
-		
+		var url_peticion = 'rest/receta/?';
 		for(var i=0; i<argumentos.length; i++){
 
 			//extraemos el prefijo (t,,n,i,e,a,d,c,di,df)
@@ -259,132 +296,61 @@ function rellenarCamposBusqueda(){
 			if(tipo_y_parametro[0]=='t'){
 				
 				titulo.value = tipo_y_parametro[1];
-				elaboracion.value = tipo_y_parametro[1];
+				descripcion.value = tipo_y_parametro[1];
+				url_peticion += 't='+tipo_y_parametro[1];
+
 			}
 			
 			//Titulo
-			if(tipo_y_parametro[0]=='n'){
+			if(tipo_y_parametro[0]=='nombre' && tipo_y_parametro[1]!=""){
 				
 				titulo.value = tipo_y_parametro[1];
+				url_peticion += 'n='+tipo_y_parametro[1]+'&';
 			}
 
 			//Ingrediente
-			if(tipo_y_parametro[0]=='i'){
+			if(tipo_y_parametro[0]=='ingredientes' && tipo_y_parametro[1]!=""){
+
 				ingredientes.value = tipo_y_parametro[1];
+				url_peticion += 'i='+tipo_y_parametro[1]+'&';
 			}
 
 			//Descripcion
-			if(tipo_y_parametro[0]=='e'){
+			if(tipo_y_parametro[0]=='descripcion' && tipo_y_parametro[1]!=""){
 				descripcion.value = tipo_y_parametro[1];
+				url_peticion += 'e='+tipo_y_parametro[1]+'&';
 			}
 
 			//Autor
-			if(tipo_y_parametro[0]=='a'){
+			if(tipo_y_parametro[0]=='autor' && tipo_y_parametro[1]!=""){
 				autor.value = tipo_y_parametro[1];
+				url_peticion += 'a='+tipo_y_parametro[1]+'&';
 			}
 
 			//Dificultad
-			if(tipo_y_parametro[0]=='d'){
+			if(tipo_y_parametro[0]=='dificultad' && tipo_y_parametro[1]!=""){
 				dificultad.value = tipo_y_parametro[1];
+				url_peticion += 'd='+tipo_y_parametro[1]+'&';
 			}
 
 			//Numero de comensales
-			if(tipo_y_parametro[0]=='c'){
+			if(tipo_y_parametro[0]=='comensales' && tipo_y_parametro[1]!=""){
 				comensales.value = tipo_y_parametro[1];
+				url_peticion += 'c='+tipo_y_parametro[1]+'&';
 			}
 
 			//Minutos
-			if(tipo_y_parametro[0]=='di' || tipo_y_parametro[0]=='df'){
+			if(tipo_y_parametro[0]=='tiempo' && tipo_y_parametro[1]!=""){
 				tiempo_elaboracion.value = tipo_y_parametro[1];
+				url_peticion +='di='+tipo_y_parametro[1]+'&df='+tipo_y_parametro[1]+'&';
 			}
 
 
 		}
 		//Acaba el for
-		realizarBusqueda();
+		peticionRecetas(url_peticion);
 	}else{
 		console.log('No existe ningun argumento...');
-		peticionRecetasBuscarSinArgumentos();
+		peticionRecetas('rest/receta/');
 	}
 }
-
-function realizarBusqueda(){
-	let titulo 		 = document.getElementById("nombre").value,
-		ingredientes = document.getElementById("ingredientes").value,
-		descripcion  = document.getElementById("descripcion").value,
-		comensales	 = document.getElementById("comensales").value,
-		dificultad	 = document.getElementById("dificultad").value,
-		autor 		 = document.getElementById("autor").value,
-		tiempo_elaboracion	 = document.getElementById("elaboracion").value,
-		url 		 = 'rest/receta/?';
-
-	if(titulo!=""){
-		url += 'n='+titulo +'&';
-	}
-	if(ingredientes!=""){
-		url += 'i='+ingredientes+'&';
-	}
-	if(descripcion!=""){
-		url += 'e='+descripcion+'&';
-	}
-	if(comensales!=""){
-		url += 'c='+comensales+'&';
-	}
-	if(dificultad!=""){
-		url += 'd='+comensales+'&';
-	}
-	if(autor!=""){
-		url += 'a='+autor+'&';
-	}
-	if(tiempo_elaboracion!=""){
-		url +='di='+tiempo_elaboracion+'&df='+tiempo_elaboracion+'&';
-	}
-
-	peticionBuscarConArgumentos(url);
-
-}
-
-//Hacemos una peticion al servidor con los parametros seleccionados
-function peticionBuscarConArgumentos(url){
-	var obj = new XMLHttpRequest();
-
-	obj.open('GET',url,true);
-	obj.onload =function(){
-		recetas = JSON.parse(obj.responseText);
-		Modificar_botonera_Index();
-		crearRecetasIndex();
-		let texto_numero_resultados = document.getElementById('total-busqueda');
-		texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
-	};
-
-	obj.onerror = function(){
-		console.log('ERROR');
-	}
-
-	obj.send();
-
-}
-
-//Pedimos todas las recetas al servidor
-function peticionRecetasBuscarSinArgumentos(){
-	var obj = new XMLHttpRequest(),
-		url = 'rest/receta/';
-	
-	obj.open('GET',url,true);
-	obj.onload = function(){
-		recetas = JSON.parse(obj.responseText);
-		peticionRecetasIndex();
-		let texto_numero_resultados = document.getElementById('total-busqueda');
-		texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
-	};
-
-	obj.onerror = function(){
-		console.log('ERROR');
-	};
-
-	
-	obj.send();
-	
-
-}
-
