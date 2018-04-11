@@ -1,4 +1,10 @@
 /*
+	TO-DO
+
+	Los directorios hacerlos absolutos.
+*/
+
+/*
 
 Variables globales
 
