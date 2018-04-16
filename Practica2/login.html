@@ -12,7 +12,8 @@
 
 	</head>
 	<body onload="arranque();">
-		<header>
+		<div id="contenedor-global-login">
+			<header>
 			<div id="contenedor-header">
 				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
 				<h1><b>Recetas de cocina</b></h1>
@@ -21,7 +22,7 @@
 		</header>
 		<input type="checkbox" id="ckbmenu">
 
-		<nav>
+		<nav id="menu">
 			<ul>
 				<li><label for="ckbmenu">&equiv;</label></li>
 				<li><a  href="index.html"><span class="icon-home" aria-hidden="true"></span><span>Inicio</span></a></li>
@@ -37,7 +38,7 @@
 		<div id="contenedor-formulario-login-registro">
 			<section id="formulario-login-registro">	  
 				<h2>LOGIN</h2>  
-		    <form onsubmit="return peticionAJAX_POST('/Practica2/rest/login/')">
+		    <form onsubmit="return hacerLogin(this);">
 
 		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required placeholder="usuario  " pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
 
@@ -47,6 +48,7 @@
 		      ¿Todavía no tienes cuenta? <a href="registro.html"><u><strong>Registrate aquí</strong></u></a>
 
 		    </form>
+		    
 	  	</section>
 		</div>
 		
@@ -83,5 +85,7 @@
 	       	</div>
 	        
     	</footer>
+		</div>
+		
 	</body>
 </html>

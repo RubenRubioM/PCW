@@ -24,7 +24,7 @@ function dejarComentario(){
 
 	let xhr = new XMLHttpRequest(),
 		url = 'rest/receta/1/comentario/',
-		fd  = new FormData();
+		fd  = new FormData(),
 		usu = JSON.parse(sessionStorage.getItem('usuario'));
 
 	fd.append('l',usu.login);

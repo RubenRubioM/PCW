@@ -35,8 +35,6 @@ function peticionRecetas(url){
 			texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
 		}
 		
-
-
 		Modificar_botonera_Index();		
 	};
 
@@ -74,9 +72,19 @@ function arranque(){
 		//comprobamos si esta logueado o no
 		if(sessionStorage.getItem("login_session"))
 		{
-			//si esta logueado
+
+			//Esta logeado
+
+			var url 		= location.href,
+				ultimoSlash = url.lastIndexOf('/'),
+				resultado 	= url.substring(ultimoSlash+1);
+			//Si estamos intenando entrar a login o registro desde la url estando ya logeado
+			if(resultado=='login.html' || resultado=='registro.html'){
+				location.href = '/PCW/Practica2/index.html';
+			}
 			
-			var elementos = document.querySelectorAll('body>nav>ul>li>a>span');
+
+			var elementos = document.querySelectorAll('#menu>ul>li>a>span');
 
 			for(var i=0; i<elementos.length;i++){
 				if(elementos[i].innerHTML=='Login' || elementos[i].innerHTML=='Registro'){
@@ -87,7 +95,15 @@ function arranque(){
 		else
 		{
 			//no esta logueado
-			var elementos = document.querySelectorAll('body>nav>ul>li>a>span');
+
+			var url 		= location.href,
+				ultimoSlash = url.lastIndexOf('/'),
+				resultado 	= url.substring(ultimoSlash+1);
+			//Si intentamos entrar a nueva receta
+			if(resultado=='nueva-receta.html'){
+				location.href = '/PCW/Practica2/index.html';
+			}
+			var elementos = document.querySelectorAll('#menu>ul>li>a>span');
 
 			for(var i=0; i<elementos.length;i++){
 				if(elementos[i].innerHTML=='Nueva receta' || elementos[i].innerHTML=='Logout'){
@@ -105,9 +121,21 @@ function arranque(){
 
 
 function cerrar(){
-
 	sessionStorage.removeItem("login_session");
 	redireccion();
+}
+
+
+//Se dispara cuando clickamos en el usuario del index.html
+function clickUsuario(){
+	console.log('Receta de:'+event.srcElement.innerHTML+'...');
+	location.href='/PCW/Practica2/buscar.html?autor='+event.srcElement.innerHTML;
+}
+
+//Se dispara cuando clickamos en el titulo de la receta en index.html
+function clickReceta(){
+	console.log('Receta de:'+event.srcElement.id+'...');
+	location.href='/PCW/Practica2/receta.html?'+event.srcElement.id;
 }
 
 /*
@@ -135,15 +163,16 @@ function crearRecetasIndex(){
 				dislikes	= recetas.FILAS[receta_imprimir].negativos,
 				foto		= recetas.FILAS[receta_imprimir].fichero,
 				desc_foto	= recetas.FILAS[receta_imprimir].descripcion_foto,
-				fecha		= recetas.FILAS[receta_imprimir].fecha;
+				fecha		= recetas.FILAS[receta_imprimir].fecha,
+				id 			= recetas.FILAS[receta_imprimir].id;
 			
 			//Creamos la tarjeta
 			var tarjeta = 
 				`<div class="contenedor-recetas">
 					<section>
 						<header>
-							<a href="receta.html"><h3>${titulo}</h3></a>
-							<p><a href="buscar.html">By ${autor}</a></p>
+							<a href="javascript:void(0);" onclick="clickReceta();"><h3 id="${id}">${titulo}</h3></a>
+							<p><a href="javascript:void(0);" onclick="clickUsuario();">${autor}</a></p>
 							<p>
 								<span class="icon-comment boton-comentario" >${comentarios}</span>
 								<span class="icon-thumbs-up-alt boton-like" >${likes}</span>
@@ -232,7 +261,6 @@ function borrar_recetas_index(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
 
 	while(div.hasChildNodes()){
-		
 		div.removeChild(div.firstChild);
 	}
 	recetas_en_pagina = 0;
@@ -291,7 +319,7 @@ function rellenarCamposBusqueda(){
 			autor 		 = document.getElementById("autor"),
 			tiempo_elaboracion	 = document.getElementById("elaboracion");
 
-		var url_peticion = 'rest/receta/?';
+		var url_peticion = './rest/receta/?';
 		for(var i=0; i<argumentos.length; i++){
 
 			//extraemos el prefijo (t,,n,i,e,a,d,c,di,df)
@@ -360,3 +388,28 @@ function rellenarCamposBusqueda(){
 		peticionRecetas('rest/receta/');
 	}
 }
+
+/*
+
+Funciones para la pagina login.html
+
+*/
+
+function hacerLogin(frm){
+	let xhr = new XMLHttpRequest(),
+		url = 'rest/login/',
+		fd  = new FormData(frm);
+
+	xhr.open('POST',url,true);
+	xhr.onload = function(){
+		console.log(xhr.responseText);
+		let r = JSON.parse(xhr.responseText);
+		if(r.RESULTADO=='OK'){
+			sessionStorage.setItem('usuario',xhr.responseText);
+		}
+	};
+	xhr.send(fd);
+
+	return false;
+}
+
