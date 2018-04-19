@@ -413,3 +413,9 @@ function hacerLogin(frm){
 	return false;
 }
 
+/*
+
+	Funciones para la pagina receta.html
+
+*/
+
