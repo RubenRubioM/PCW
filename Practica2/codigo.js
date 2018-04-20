@@ -6,6 +6,8 @@
 	Mostrar el mensaje de error en el login
 
 	En el index y buscar hacer un metodo para ordenar las recetas por fecha
+
+	En la receta los JSON ponen que tienen 3 nfotos pero solo ponen un fichero con una descripcion
 */
 
 /*
@@ -19,6 +21,9 @@ var recetas; //archivo JSON con todas las recetas
 var receta_imprimir = 0; //Receta del array que vamos a imprimir
 var recetas_en_pagina = 0; //Recetas que se estan mostrando actualmente
 const recetas_por_pagina = 6; //Recetas a mostrar por pagina
+var fotos_receta; //Array de fotos de la receta
+var foto_mostrar = 0; //Foto del array que vamos a mostrar
+var nfotos; //Numero de fotos de la receta
 
 /*
 
@@ -78,7 +83,7 @@ function arranque(){
 		{
 
 			//Esta logeado
-			
+			console.log('El usuario esta logeado...');
 			var url 		= location.href,
 				ultimoSlash = url.lastIndexOf('/'),
 				resultado 	= url.substring(ultimoSlash+1);
@@ -99,7 +104,7 @@ function arranque(){
 		else
 		{
 			//no esta logueado
-
+			console.log('El usuario NO esta logeado...');
 			var url 		= location.href,
 				ultimoSlash = url.lastIndexOf('/'),
 				resultado 	= url.substring(ultimoSlash+1);
@@ -400,14 +405,15 @@ function hacerLogin(frm){
 	
 	xhr.open('POST',url,true);
 	xhr.onload = function(){
-		console.log(xhr.responseText);
+		
 		let r = JSON.parse(xhr.responseText);
-		console.log(r.RESULTADO);
+		
 		if(r.RESULTADO=='OK'){
 			//Login correcto
 			console.log('Login realizado con éxito...');
 			sessionStorage.setItem('login_session',xhr.responseText);
 			redireccion();
+
 		}else{
 			//Algo fallo en el login, debemos mostrar el error
 			console.log('Error en el login...');
@@ -442,13 +448,242 @@ function aceptarErrorLogin(){
 
 */
 
+/*
+	
+	Lo que he hecho aquí ha sido ir pidiendo en cascada los determinados datos necesarios dado que debido al asincrono es la manera mas segura. Una vez tenemos todos los datos realizamos el formateo.
+
+*/
 function inicializarReceta(){
 	//Separamos la url para conseguir la id al final
 	var url 		= location.href,
 		ultimoSlash = url.lastIndexOf('?'),
-		resultado 	= url.substring(ultimoSlash+1);
+		id 			= url.substring(ultimoSlash+1);
 		 		
-	console.log(resultado);
+	var obj = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id;
+	
+	obj.open('GET',peticion,true);
+	obj.onload = function(){
+		var receta = JSON.parse(obj.responseText);
+		if(receta.RESULTADO=='OK'){
+			peticionComentarios(id,receta);
+		}
+		
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
 
 	
+	obj.send();
+
+}
+
+function peticionComentarios(id,receta){
+	var obj = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/comentarios';
+	
+	obj.open('GET',peticion,true);
+	obj.onload = function(){
+		var comentarios = JSON.parse(obj.responseText);
+		if(comentarios.RESULTADO=='OK'){
+			peticionIngredientes(id,receta,comentarios);
+		}
+		
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
+
+	
+	obj.send();
+}
+
+function peticionIngredientes(id,receta,comentarios){
+	var obj = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/ingredientes';
+	
+	obj.open('GET',peticion,true);
+	obj.onload = function(){
+		var ingredientes = JSON.parse(obj.responseText);
+		if(ingredientes.RESULTADO=='OK'){
+			formatearReceta(receta,comentarios,ingredientes);
+		}
+		
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
+
+	
+	obj.send();
+}
+
+function formatearReceta(receta,comentarios_json,ingredientes_json){
+	console.log('Pedida la receta nº '+receta.FILAS[0].id);
+
+	
+	//Asignamos los datos del JSON a variables
+	let nombre 		= receta.FILAS[0].nombre,
+		autor 		= receta.FILAS[0].autor,
+		comentarios = receta.FILAS[0].comentarios,
+		likes 		= receta.FILAS[0].positivos,
+		dislikes	= receta.FILAS[0].negativos,
+		desc_foto	= receta.FILAS[0].descripcion_foto,
+		fecha		= receta.FILAS[0].fecha,
+		id 			= receta.FILAS[0].id,
+		comensales	= receta.FILAS[0].comensales,
+		tiempo		= receta.FILAS[0].tiempo,
+		dificultad	= receta.FILAS[0].dificultad,	
+		elaboracion = receta.FILAS[0].elaboracion;
+
+	//Esto son variables globales ya definidas
+	fotos			= receta.FILAS[0].fichero;
+	nfotos			= receta.FILAS[0].nfotos;
+	
+	
+	var div = document.getElementById('contenedor-todas-las-recetas-receta');
+	var tarjeta = `<div class="contenedor-recetas-receta">
+				<section>
+					<header>
+						<h3>${nombre}</h3>
+						<p>
+							<span class="icon-user" id="numero-comensales">${comensales}</span>
+
+							<span id="numero-preparacion">&#9200; ${tiempo}</span>
+
+							<span id="numero-dificultad">🌟 ${dificultad}</span>
+						</p>
+						<p><a href="buscar.html">By ${autor}</a></p>
+						<p>
+							<button><span class="icon-comment boton-comentario">${comentarios}</span></button>
+
+							<button onclick="darLike();"><span class="icon-thumbs-up-alt boton-like">${likes}</span></button>
+
+							<button darDislike();><span class="icon-thumbs-down-alt boton-dislike">${dislikes}</span></button>
+
+							
+						</p>
+					</header>
+					<p>${elaboracion}</p>
+					<!-- Ingredientes -->
+					<ul>
+					`;
+
+	//Indexamos los ingredientes en una lista
+	for(var i=0;i<ingredientes_json.FILAS.length;i++){
+		tarjeta += `<li>${ingredientes_json.FILAS[i].nombre}</li>`
+	}
+	tarjeta += '</ul>';
+	
+	//Indexamos el resto hasta comentarios
+	tarjeta += `<div>
+					<img src="fotos/${fotos}" alt="${desc_foto}"><br>
+					<span>${desc_foto}</span><br>
+					<button onclick="anteriorFoto();"><span class="icon-left-big"></span></button>
+					<button onclick="siguienteFoto();"><span class="icon-right-big"></span></button>
+				</div>
+					
+				<footer>
+					<p><time datetime="${fecha}">${fecha}</time></p>
+				</footer>
+				
+				<span id="ultimos-comentarios">Ultimos comentarios</span>
+
+				<!-- Zona de comentarios -->
+				`;
+
+	//Indexamos los comentarios
+	tarjeta += `<div class="contenedor-receta-comentarios">`;
+
+	for(var i=0;i<comentarios_json.FILAS.length;i++){
+		tarjeta += `<div class="contenedor-receta-comentarios">
+						<h3>${comentarios_json.FILAS[i].titulo}</h3>
+						<p class="subtitulo-comentario-receta">
+							<span class="icon-user"></span>
+							<span>${comentarios_json.FILAS[i].autor},</span>
+							<span><time datetime="${comentarios_json.FILAS[i].fecha}">${comentarios_json.FILAS[i].fecha}</time></span>
+						</p>
+						<p class="comentario-receta">${comentarios_json.FILAS[i].texto} </p>
+					</div>`
+	}
+
+	//Por ultimo indexamos la zona de comentarios
+	tarjeta += `<div id="contenedor-introducir-comentario">
+					<h3>Deje su opinión</h3>
+					<p class="subtitulo-comentario-receta">
+						<span class="icon-user"></span>
+						<span>${JSON.parse(sessionStorage.getItem('login_session')).nombre},</span>
+						<span><time datetime="2018-01-05 19:40">(Martes, 05/01/2018, 19:40h)</time></span>
+					</p>
+					<form onsubmit="return dejarComentario(this);">
+						<p>
+							TITULO:
+							<input type="text" name="titulo" maxlength="50" pattern="[a-zA-Z0-9]{1,49}$" title="minimo 1 caracter y maximo 50" required>
+						</p>
+					
+						<textarea name="texto" required></textarea>
+						<input type="submit" value="Enviar comentario">
+					</form>
+					
+				</div>`;
+	div.innerHTML = tarjeta;
+
+	comprobarCajaComentarios();
+
+}
+
+
+function comprobarCajaComentarios(){
+	//Si el usuario no esta logeado eliminamos la parte de introducir comentarios
+	if(!sessionStorage.getItem('login_session')){
+		var caja = document.getElementById('contenedor-introducir-comentario');
+		caja.style.display = "none";
+	}
+	
+}
+
+//Funcion al darle al submit de enviar comentario
+function dejarComentario(frm){
+
+	//Separamos la url para conseguir la id al final
+	var url 		= location.href,
+		ultimoSlash = url.lastIndexOf('?'),
+		id 			= url.substring(ultimoSlash+1);
+
+	let xhr = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/comentario/',
+		fd  = new FormData(frm),
+		usu = JSON.parse(sessionStorage.getItem('login_session'));
+
+	fd.append('l',usu.login);
+	
+	xhr.open('POST',peticion,true);
+	xhr.onload = function(){
+		let r = JSON.parse(xhr.responseText);
+		console.log(r.RESULTADO);
+	};
+	xhr.setRequestHeader('Authorization',usu.clave);
+
+	xhr.send(fd);
+	return false
+	
+}
+
+function anteriorFoto(){
+	//No es la primera foto
+	if(foto_mostrar>0 && nfotos>1){
+		foto_mostrar++;
+	}
+
+}
+
+function siguienteFoto(){
+	//No es la ultima foto
+	if(foto_mostrar<nfotos-1 && nfotos>1){
+		foto_mostrar--;
+	}
 }
