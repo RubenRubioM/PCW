@@ -5,7 +5,7 @@
 
 	Mostrar el mensaje de error en el login
 
-	Hacer que firefox soporte lo de clickear en el autor y titulo de receta
+	En el index y buscar hacer un metodo para ordenar las recetas por fecha
 */
 
 /*
@@ -135,18 +135,6 @@ function redireccion(){
 }
 
 
-//Se dispara cuando clickamos en el usuario del index.html
-function clickUsuario(){
-	console.log('Receta de:'+event.srcElement.innerHTML+'...');
-	location.href='/PCW/Practica2/buscar.html?autor='+event.srcElement.innerHTML;
-}
-
-//Se dispara cuando clickamos en el titulo de la receta en index.html
-function clickReceta(){
-	console.log('Receta de:'+event.srcElement.id+'...');
-	location.href='/PCW/Practica2/receta.html?'+event.srcElement.id;
-}
-
 /*
 
 Funciones para el index.html
@@ -180,8 +168,8 @@ function crearRecetasIndex(){
 				`<div class="contenedor-recetas">
 					<section>
 						<header>
-							<a href="javascript:void(0);" onclick="clickReceta();"><h3 id="${id}">${titulo}</h3></a>
-							<p><a href="javascript:void(0);" onclick="clickUsuario();">${autor}</a></p>
+							<a href="receta.html?${id}"><h3>${titulo}</h3></a>
+							<p><a href="buscar.html?autor=${autor}">${autor}</a></p>
 							<p>
 								<span class="icon-comment boton-comentario" >${comentarios}</span>
 								<span class="icon-thumbs-up-alt boton-like" >${likes}</span>
@@ -454,3 +442,13 @@ function aceptarErrorLogin(){
 
 */
 
+function inicializarReceta(){
+	//Separamos la url para conseguir la id al final
+	var url 		= location.href,
+		ultimoSlash = url.lastIndexOf('?'),
+		resultado 	= url.substring(ultimoSlash+1);
+		 		
+	console.log(resultado);
+
+	
+}
