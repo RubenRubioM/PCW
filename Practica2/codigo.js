@@ -2,6 +2,10 @@
 	TO-DO
 
 	Los directorios hacerlos absolutos.
+
+	Mostrar el mensaje de error en el login
+
+	Hacer que firefox soporte lo de clickear en el autor y titulo de receta
 */
 
 /*
@@ -74,7 +78,7 @@ function arranque(){
 		{
 
 			//Esta logeado
-
+			
 			var url 		= location.href,
 				ultimoSlash = url.lastIndexOf('/'),
 				resultado 	= url.substring(ultimoSlash+1);
@@ -121,8 +125,13 @@ function arranque(){
 
 
 function cerrar(){
+	console.log('entra');
 	sessionStorage.removeItem("login_session");
-	redireccion();
+	setTimeout("redireccion()",2*1000); //cuando pasan 2 segundos se redirecciona al index
+}
+
+function redireccion(){
+	document.location.href="index.html";
 }
 
 
@@ -400,17 +409,43 @@ function hacerLogin(frm){
 		url = 'rest/login/',
 		fd  = new FormData(frm);
 
+	
 	xhr.open('POST',url,true);
 	xhr.onload = function(){
 		console.log(xhr.responseText);
 		let r = JSON.parse(xhr.responseText);
+		console.log(r.RESULTADO);
 		if(r.RESULTADO=='OK'){
-			sessionStorage.setItem('usuario',xhr.responseText);
+			//Login correcto
+			console.log('Login realizado con éxito...');
+			sessionStorage.setItem('login_session',xhr.responseText);
+			redireccion();
+		}else{
+			//Algo fallo en el login, debemos mostrar el error
+			console.log('Error en el login...');
+
+			/*
+				
+				MOSTRAR MENSAJE DE ERROR POR HTML
+
+			*/
+
+			let div = document.getElementById("contenedor-global-login"),
+				error = document.getElementById("errorLogin");
+			div.style.display="none";
+			error.style.display="block";
 		}
 	};
 	xhr.send(fd);
 
 	return false;
+}
+
+function aceptarErrorLogin(){
+	let div = document.getElementById("contenedor-global-login"),
+				error = document.getElementById("errorLogin");
+	div.style.display="block";
+	error.style.display="none";
 }
 
 /*

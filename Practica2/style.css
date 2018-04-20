@@ -275,11 +275,12 @@ body{
 		}
 
 /* Estilo de la pagina login */
-
+#contenedor-global-login{
+	
+}
 #contenedor-formulario-login-registro{
 	background-color: #F3F3CF;
 	text-align: center;
-
 }
 
 #formulario-login-registro{
