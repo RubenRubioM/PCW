@@ -453,6 +453,7 @@ function aceptarErrorLogin(){
 	Lo que he hecho aquí ha sido ir pidiendo en cascada los determinados datos necesarios dado que debido al asincrono es la manera mas segura. Una vez tenemos todos los datos realizamos el formateo.
 
 */
+//Comenzamos una cascada de peticiones para todo lo que necesitamos en la receta
 function inicializarReceta(){
 	//Separamos la url para conseguir la id al final
 	var url 		= location.href,
@@ -477,9 +478,9 @@ function inicializarReceta(){
 
 	
 	obj.send();
-
 }
 
+//Pedimos los comentarios
 function peticionComentarios(id,receta){
 	var obj = new XMLHttpRequest(),
 		peticion = './rest/receta/'+id+'/comentarios';
@@ -501,6 +502,7 @@ function peticionComentarios(id,receta){
 	obj.send();
 }
 
+//Pedimos los ingredientes
 function peticionIngredientes(id,receta,comentarios){
 	var obj = new XMLHttpRequest(),
 		peticion = './rest/receta/'+id+'/ingredientes';
@@ -509,6 +511,29 @@ function peticionIngredientes(id,receta,comentarios){
 	obj.onload = function(){
 		var ingredientes = JSON.parse(obj.responseText);
 		if(ingredientes.RESULTADO=='OK'){
+			pedirFotos(id,receta,comentarios,ingredientes)
+			
+		}
+		
+	};
+
+	obj.onerror = function(){
+		console.log('ERROR');
+	};
+
+	
+	obj.send();
+}
+
+//Pedimos las fotos
+function pedirFotos(id,receta,comentarios,ingredientes){
+	var obj = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/fotos';
+	
+	obj.open('GET',peticion,true);
+	obj.onload = function(){
+		fotos = JSON.parse(obj.responseText);
+		if(fotos.RESULTADO=='OK'){
 			formatearReceta(receta,comentarios,ingredientes);
 		}
 		
@@ -522,6 +547,7 @@ function peticionIngredientes(id,receta,comentarios){
 	obj.send();
 }
 
+//Montamos la receta
 function formatearReceta(receta,comentarios_json,ingredientes_json){
 	console.log('Pedida la receta nº '+receta.FILAS[0].id);
 
@@ -541,7 +567,7 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 		elaboracion = receta.FILAS[0].elaboracion;
 
 	//Esto son variables globales ya definidas
-	fotos			= receta.FILAS[0].fichero;
+	
 	nfotos			= receta.FILAS[0].nfotos;
 	
 	
@@ -557,13 +583,13 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 
 							<span id="numero-dificultad">🌟 ${dificultad}</span>
 						</p>
-						<p><a href="buscar.html">By ${autor}</a></p>
+						<p><a href="buscar.html?autor=${autor}">By ${autor}</a></p>
 						<p>
 							<button><span class="icon-comment boton-comentario">${comentarios}</span></button>
 
 							<button onclick="darLike();"><span class="icon-thumbs-up-alt boton-like">${likes}</span></button>
 
-							<button darDislike();><span class="icon-thumbs-down-alt boton-dislike">${dislikes}</span></button>
+							<button onclick="darDislike();"><span class="icon-thumbs-down-alt boton-dislike">${dislikes}</span></button>
 
 							
 						</p>
@@ -581,8 +607,8 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 	
 	//Indexamos el resto hasta comentarios
 	tarjeta += `<div>
-					<img src="fotos/${fotos}" alt="${desc_foto}"><br>
-					<span>${desc_foto}</span><br>
+					<img src="fotos/${fotos.FILAS[foto_mostrar].fichero}" alt="${fotos.FILAS[foto_mostrar].texto}"><br>
+					<span>${fotos.FILAS[foto_mostrar].texto}</span><br>
 					<button onclick="anteriorFoto();"><span class="icon-left-big"></span></button>
 					<button onclick="siguienteFoto();"><span class="icon-right-big"></span></button>
 				</div>
@@ -611,13 +637,29 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 					</div>`
 	}
 
+	//Comprobamos si el usuario esta logeado o si no
+	if(sessionStorage.getItem('login_session')){
+		var user = JSON.parse(sessionStorage.getItem('login_session')).nombre;
+	}else{
+		user = '';
+	}
+
 	//Por ultimo indexamos la zona de comentarios
+
+	var currentdate = new Date(); 
+    var datetime = currentdate.getFullYear() + '-'
+    			 + currentdate.getDate() + '-'
+    			 + (currentdate.getMonth()+1) + ' '
+    			 + currentdate.getHours() + ':'
+    			 + currentdate.getMinutes() + ':'
+    			 + currentdate.getMilliseconds();
+	
 	tarjeta += `<div id="contenedor-introducir-comentario">
 					<h3>Deje su opinión</h3>
 					<p class="subtitulo-comentario-receta">
 						<span class="icon-user"></span>
-						<span>${JSON.parse(sessionStorage.getItem('login_session')).nombre},</span>
-						<span><time datetime="2018-01-05 19:40">(Martes, 05/01/2018, 19:40h)</time></span>
+						<span>${user},</span>
+						<span><time datetime="${datetime}">${datetime}</time></span>
 					</p>
 					<form onsubmit="return dejarComentario(this);">
 						<p>
@@ -632,11 +674,12 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 				</div>`;
 	div.innerHTML = tarjeta;
 
+
 	comprobarCajaComentarios();
 
 }
 
-
+//Comprobamos si el usuario esta logeado para eliminar o no la caja de comentarios
 function comprobarCajaComentarios(){
 	//Si el usuario no esta logeado eliminamos la parte de introducir comentarios
 	if(!sessionStorage.getItem('login_session')){
@@ -673,10 +716,54 @@ function dejarComentario(frm){
 	
 }
 
+//El usuario da like a una receta
+function darLike(){
+	enviarVoto(1);
+}
+
+//El usuario da dislike a una receta
+function darDislike(){
+	enviarVoto(0);
+}
+
+
+function enviarVoto(valor){
+	//Separamos la url para conseguir la id al final
+	var url 		= location.href,
+		ultimoSlash = url.lastIndexOf('?'),
+		id 			= url.substring(ultimoSlash+1);
+
+	//Valor sera 1 (positivo) o 0 (negativo)
+	let xhr = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/voto/'+valor,
+		fd  = new FormData(),
+		usu = JSON.parse(sessionStorage.getItem('login_session'));
+
+	fd.append('l',usu.login);
+	
+	xhr.open('POST',peticion,true);
+	xhr.onload = function(){
+		let r = JSON.parse(xhr.responseText);
+		if(r.RESULTADO=='OK'){
+			if(valor==1){
+				console.log('Se ha contabilizado tu voto positivo :)');
+			}else{
+				console.log('Se ha contabilizado tu voto negativo :(');
+
+			}
+		}
+	};
+	xhr.setRequestHeader('Authorization',usu.clave);
+
+	xhr.send(fd);
+	return false
+}
+
 function anteriorFoto(){
 	//No es la primera foto
 	if(foto_mostrar>0 && nfotos>1){
-		foto_mostrar++;
+		foto_mostrar--;
+		inicializarReceta();
 	}
 
 }
@@ -684,6 +771,14 @@ function anteriorFoto(){
 function siguienteFoto(){
 	//No es la ultima foto
 	if(foto_mostrar<nfotos-1 && nfotos>1){
-		foto_mostrar--;
+		foto_mostrar++;
+		inicializarReceta();
 	}
 }
+
+
+/*
+
+	Funciones para la pagina nueva-receta.html
+
+*/
