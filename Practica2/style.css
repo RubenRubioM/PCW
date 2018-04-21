@@ -275,14 +275,35 @@ body{
 		}
 
 /* Estilo de la pagina login */
-#contenedor-global-login{
+#errorLogin{
+	background-color: #F3F3CF;
+	text-align: center;
+	width: 1000px;
+	height: 100%;
 	
+}
+
+#contenedor-global-registro{
+
 }
 #contenedor-formulario-login-registro{
 	background-color: #F3F3CF;
 	text-align: center;
 }
 
+#usuario-existente{
+	color:#F51919;
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	margin:0;
+}
+
+#password-diferente{
+	color:#F51919;
+	font-family: 'Roboto Condensed', sans-serif;
+	text-align: center;
+	margin:0;
+}
 #formulario-login-registro{
 	display: inline-block;
 	text-align: center;
@@ -568,6 +589,13 @@ body>div>header{
 			max-width: 15em;
 
 		}
+		#formulario-nueva-receta>form>button{
+			color: #2d572c;
+			width: 100%;
+			max-width: 15em;
+
+		}
+
 		
 		#texto-ingredientes{
 			display: block;
@@ -588,7 +616,7 @@ body>div>header{
 			width: 100%;
 			max-width: 10em;
 		}
-		#formulario-nueva-receta>form>input[type="button"]{
+		#formulario-nueva-receta>form>button{
 			background-color: rgba(0,0,0,0);
 			margin: 1em 0;
 			
@@ -597,33 +625,33 @@ body>div>header{
 		}
 
 		
-		.contenedor-imagen>textarea{
-			display: block;
-			width: 100%;
-
-			min-height: 5em;
+		.contenedor-imagen>input[type="text"]{
+			
 			font-family: 'Roboto Condensed', sans-serif;
 			font-size: .8em;
 			padding:0;
 			text-align: left;
 		}
-			.contenedor-imagen>textarea:hover{
+			.contenedor-imagen>input[type="text"]:hover{
 				background-color: #D1E548;
 			}
+
 		.contenedor-imagen>picture>img{
 			width: 30%;
 			display: block-flex;
 			margin: 0 30%;
 
 		}
-		.contenedor-imagen>p>input[type="button"]{
+		.contenedor-imagen>p>button{
 			background-color: rgba(0,0,0,0);
 			color: #2d572c;
 		}
-			#formulario-nueva-receta>form>input:hover{
+			#formulario-nueva-receta>button:hover{
 				background-color: #F4EAEA;
 				
 			}
+
+
 
 /* Parte del acerca de */
 

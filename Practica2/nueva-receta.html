@@ -35,66 +35,45 @@
 		<div id="contenedor-nueva-receta">
 			<section id="formulario-nueva-receta">	  
 				<h2>NUEVA RECETA</h2>  
-			    <form>
+			    <form onsubmit="return enviarReceta(this);">
 
-				    <label for="nombre-receta">Nombre de la receta:</label><input id="nombre-receta" type="text" name="nombre-receta" autofocus required  maxlength="200"><br>
+				    <label for="nombre-receta">Nombre de la receta:</label><input id="nombre-receta" type="text" name="n" autofocus required  maxlength="200"><br>
 
-				    <label for="numero-comensales">Número de comensales:</label><input id="numero-comensales" type="number" name="numero-comensales" required><br>
+				    <label for="numero-comensales">Número de comensales:</label><input id="numero-comensales" type="number" name="c" min="1" required><br>
 
-				    <label for="tiempo-elaboracion">Tiempo de elaboración:</label><input id="tiempo-elaboracion" type="number" name="tiempo-elaboracion" required><br>
+				    <label for="tiempo-elaboracion">Tiempo de elaboración:</label><input id="tiempo-elaboracion" type="number" name="l" min="5" max="100" step="5"  required><br>
 					
 
-				   	<select>
-						<option>Facil</option>
-						<option>Medio</option>
-						<option>Dificil</option>		
+				   	<select id="dificultad" name="d">
+						<option>0</option>
+						<option>1</option>
+						<option>2</option>	
+						<option>3</option>	
 					</select> <br>
 					
 					<span id="texto-elaboracion">Elaboración:</span>
-					<textarea></textarea> <br>
+					<textarea name="e"></textarea> <br>
 			      
 			      	<span id="texto-ingredientes">Ingredientes:</span>
-					<ol contenteditable>
-						<li></li>
+					<ol  id="lista-ingredientes" contenteditable>
+						
 
 					</ol>
 					
-					<input type="text" name="ingrediente" id="texto-ingrediente">
-					<input type="button" name="enviar" value="Añadir ingrediente"><br>
+					<input type="text" id="texto-ingrediente">
+					<button type="button" onclick="nuevoIngrediente();" value="Añadir ingrediente">Añadir Ingrediente</button>
+					<br>
 					
 
-					<div class="contenedor-imagen">
-							<picture>
-								<img src="Images/receta-vegana.jpg" alt="receta-vegana">
-								
-							</picture>
-							<textarea placeholder="Información de la imagen" maxlength="250"></textarea>
-							<p><input type="button"  value="Seleccionar foto"><input type="button"  value="Eliminar foto"></p>
-					</div>
-
-					<div class="contenedor-imagen">
-						<picture>
-							<img src="Images/receta-vegana.jpg" alt="receta-vegana">
-							
-						</picture>
-						<textarea placeholder="Información de la imagen" maxlength="250"></textarea>
-						<p><input type="button"  value="Seleccionar foto"><input type="button" value="Eliminar foto"></p>
+					
+					<div id="contenedor-todas-las-imagenes">
 						
 					</div>
-
-					<div class="contenedor-imagen">
-						<picture>
-							<img src="Images/receta-vegana.jpg" alt="receta-vegana"> 
-							
-						</picture>
-						<textarea placeholder="Información de la imagen" maxlength="250"></textarea>
-						<p><input type="button" value="Seleccionar foto"><input type="button" value="Eliminar foto"></p>
-
-					</div>
 					
 					
-					<input type="button" value="Añadir foto"><br>
-			      	<input type="submit" value="Enviar"><br>
+					
+					<button onclick="nuevaFoto();" type="button" value="Añadir foto">Añadir foto</button><br>
+			      	<input type="submit" value="Enviar receta"><br>
 			      	
 
 			    </form>

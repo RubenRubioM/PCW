@@ -1,13 +1,12 @@
 /*
 	TO-DO
 
-	Los directorios hacerlos absolutos.
 
-	Mostrar el mensaje de error en el login
+	1. Modificar con css el mensaje emergente del login y registro
 
-	En el index y buscar hacer un metodo para ordenar las recetas por fecha
+	2. En el index y buscar hacer un metodo para ordenar las recetas por fecha
 
-	En la receta los JSON ponen que tienen 3 nfotos pero solo ponen un fichero con una descripcion
+	3. Hacer el nueva-receta
 */
 
 /*
@@ -173,7 +172,7 @@ function crearRecetasIndex(){
 				`<div class="contenedor-recetas">
 					<section>
 						<header>
-							<a href="receta.html?${id}"><h3>${titulo}</h3></a>
+							<a href="receta.html?${id}" title="${titulo}"><h3>${titulo}</h3></a>
 							<p><a href="buscar.html?autor=${autor}">${autor}</a></p>
 							<p>
 								<span class="icon-comment boton-comentario" >${comentarios}</span>
@@ -418,11 +417,7 @@ function hacerLogin(frm){
 			//Algo fallo en el login, debemos mostrar el error
 			console.log('Error en el login...');
 
-			/*
-				
-				MOSTRAR MENSAJE DE ERROR POR HTML
-
-			*/
+			
 
 			let div = document.getElementById("contenedor-global-login"),
 				error = document.getElementById("errorLogin");
@@ -686,7 +681,6 @@ function comprobarCajaComentarios(){
 		var caja = document.getElementById('contenedor-introducir-comentario');
 		caja.style.display = "none";
 	}
-	
 }
 
 //Funcion al darle al submit de enviar comentario
@@ -712,8 +706,7 @@ function dejarComentario(frm){
 	xhr.setRequestHeader('Authorization',usu.clave);
 
 	xhr.send(fd);
-	return false
-	
+	return false;
 }
 
 //El usuario da like a una receta
@@ -782,3 +775,157 @@ function siguienteFoto(){
 	Funciones para la pagina nueva-receta.html
 
 */
+
+//Añadimos un ingrediente a la lista
+function nuevoIngrediente(){
+	let ingrediente = document.getElementById('texto-ingrediente').value,
+		lista 		= document.querySelector('#lista-ingredientes');
+
+	if(ingrediente!=''){
+		lista.innerHTML += `<li>${ingrediente}</li>`;
+	}
+	
+}
+
+//Introducimos la plantilla de una nueva foto
+function nuevaFoto(){
+	let div = document.getElementById('contenedor-todas-las-imagenes');
+
+	div.innerHTML += `<div class="contenedor-imagen">
+						<picture>
+							<img src="Images/receta-vegana.jpg" alt="receta-vegana"> 
+							
+						</picture>
+						<input type="text" placeholder="Información de la imagen" maxlength="50"></textarea>
+						<p><input type="file" value="Seleccionar foto">
+						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">Eliminar foto</button></p>
+
+						</div>`;
+}
+
+function eliminarFoto(e){
+	let div = e.parentNode.parentNode;
+	
+	document.removeChild(div);
+	
+}
+
+function enviarReceta(frm){
+	let titulo 	   = document.getElementById('nombre-receta').value,
+		comensales = document.getElementById('numero-comensales').value,
+		tiempo 	   = document.getElementById('tiempo-elaboracion').value,
+		dificultad = document.getElementById('dificultad').value,
+		texto 	   = document.getElementById('texto-elaboracion').value;
+
+	console.log(titulo);
+	console.log(comensales);
+	console.log(tiempo);
+	console.log(dificultad);
+	console.log(texto);
+	console.log(frm);
+
+
+
+}
+
+
+/*
+
+	Funciones para la pagina registro.html
+
+*/
+
+//Peticion POST para hacer el registro
+
+var password_igual=false;
+
+function hacerRegistro(frm){
+
+	if(password_igual){
+		let xhr = new XMLHttpRequest(),
+		peticion = './rest/usuario/',
+		fd  = new FormData(frm);
+	
+		xhr.open('POST',peticion,true);
+		xhr.onload = function(){
+			let r = JSON.parse(xhr.responseText);
+			if(r.RESULTADO=='OK'){
+				//Registro con exito
+				let div = document.getElementById('contenedor-global-registro');
+				div.style.display='none';
+
+				let div2 = document.getElementById('registroCorrecto');
+				div2.style.display='block';
+			}else{
+				//Registro fallido
+				console.log('Error en el registro...');
+			}
+		};
+		xhr.setRequestHeader('Authorization',usu.clave);
+
+		xhr.send(fd);
+		return false;
+	}
+	
+}
+
+//Se llama cada vez que pulsamos una tecla en el nombre de usuario
+function comprobarUsuario(){
+	var nombre = document.getElementById('usu').value,
+		url    = './rest/login/'+nombre,
+		obj    = new XMLHttpRequest();
+
+	if(nombre!=''){
+		obj.open('GET',url,true);
+		obj.onload = function(){
+			var r = JSON.parse(obj.responseText);
+			
+			
+			if(r.DISPONIBLE==true){
+				//Esta disponible ese usuario
+				
+				var mensaje = document.getElementById('usuario-existente');
+				mensaje.style.display = 'none';
+			}else{
+				//NO esta disponible ese usuario
+				console.log('Usuario NO disponible :(');
+
+				var mensaje = document.getElementById('usuario-existente');
+				mensaje.style.display = 'block';
+			}
+		};
+
+		obj.onerror = function(){
+			console.log('ERROR');
+		};
+
+		
+		obj.send();
+	}else{
+		let mensaje = document.getElementById('usuario-existente');
+		mensaje.style.display = 'none';
+	}
+	
+}
+
+//Se llama cada vez que pulsamos una tecla en la confimacion de la contraseña
+function comprobarPassword(){
+	let psw  = document.getElementById('psw').value,
+		psw2 = document.getElementById('psw2').value,
+		div  = document.getElementById('password-diferente');
+
+	if(psw2!=''){
+		if(psw!=psw2){
+			div.style.display = 'block';
+			password_igual = false;
+		}else{
+			div.style.display = 'none';
+			password_igual = true;
+		}
+	}
+	
+}
+
+function aceptarRegistro(){
+	location.href='login.html';
+}

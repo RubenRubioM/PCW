@@ -10,82 +10,95 @@
 
 	</head>
 	<body onload="arranque();">
-		<header>
-			<div id="contenedor-header">
-				<img id="imagen-header" src="Images/logo-header.png" alt="logo">
-				<h1><b>Recetas de cocina</b></h1>
-				<p>Las mejores recetas de cocina</p>
+
+		<div id="contenedor-global-registro">
+			<header>
+				<div id="contenedor-header">
+					<img id="imagen-header" src="Images/logo-header.png" alt="logo">
+					<h1><b>Recetas de cocina</b></h1>
+					<p>Las mejores recetas de cocina</p>
+				</div>
+			</header>
+			<input type="checkbox" id="ckbmenu">
+
+			<nav id="menu">
+				<ul>
+					<li><label for="ckbmenu">&equiv;</label></li>
+					<li><a  href="index.html"><span class="icon-home" aria-hidden="true"></span><span>Inicio</span></a></li>
+					<li><a href="buscar.html"><span class="icon-search" aria-hidden="true"></span><span>Buscar</span></a></li>
+					<li><a href="login.html"><span class="icon-user" aria-hidden="true"></span><span>Login</span></a></li>
+					<li onclick="cerrar();"><a href="#"><span class="icon-user-times" aria-hidden="true"></span><span>Logout</span></a></li>
+					<li><a href="registro.html"><span class="icon-user-plus" aria-hidden="true"></span><span>Registro</span></a></li>
+					<li><a href="nueva-receta.html"><span class="icon-plus-circled" aria-hidden="true"></span><span>Nueva receta</span></a></li>
+				</ul>
+			</nav>
+			
+			<div id="contenedor-formulario-login-registro">
+				<section id="formulario-login-registro">	  
+					<h2>REGISTRO</h2>  
+			    <form onsubmit="return hacerRegistro(this);">
+
+				      <label for="usu"><strong>Nombre de usuario: </strong></label><input onkeyup="comprobarUsuario();" id="usu" type="text" name="login" autofocus required pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
+					  
+					  <p style="display:none;" id="usuario-existente">&#9888;Nombre de usuario no disponible</p>
+				      
+				      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="pwd" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+
+				      <label for="psw2"><strong>Confirma contraseña: </strong></label><input onkeyup="comprobarPassword();" id="psw2" type="password" name="pwd2" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
+
+					  <p style="display:none;" id="password-diferente">&#9888;Las contraseñas no coinciden</p>
+
+				      <label for="nombre"><strong>Nombre completo: </strong></label><input id="nombre" type="text" name="nombre" required title="Introduzca aqui su nombre completo"><br>
+
+				      <label for="email"><strong>E-mail: </strong></label><input id="email" type="email" name="email" required title="Introduzca aqui su correo electronico"><br>
+
+				      <label for="fecha"><strong>Fecha: </strong></label><input id="fecha" type="date" name="fnac" required title="Introduzca aqui su fecha de nacimiento"><br>
+				      
+
+				      <input type="submit" value="Enviar"><br><br>
+				      ¿Ya tienes una cuenta?<a href="login.html"><u><strong>Inicia sesión aquí</strong></u></a>
+
+			    </form>
+		  	</section>
 			</div>
-		</header>
-		<input type="checkbox" id="ckbmenu">
 
-		<nav id="menu">
-			<ul>
-				<li><label for="ckbmenu">&equiv;</label></li>
-				<li><a  href="index.html"><span class="icon-home" aria-hidden="true"></span><span>Inicio</span></a></li>
-				<li><a href="buscar.html"><span class="icon-search" aria-hidden="true"></span><span>Buscar</span></a></li>
-				<li><a href="login.html"><span class="icon-user" aria-hidden="true"></span><span>Login</span></a></li>
-				<li onclick="cerrar();"><a href="#"><span class="icon-user-times" aria-hidden="true"></span><span>Logout</span></a></li>
-				<li><a href="registro.html"><span class="icon-user-plus" aria-hidden="true"></span><span>Registro</span></a></li>
-				<li><a href="nueva-receta.html"><span class="icon-plus-circled" aria-hidden="true"></span><span>Nueva receta</span></a></li>
-			</ul>
-		</nav>
-		
-		<div id="contenedor-formulario-login-registro">
-			<section id="formulario-login-registro">	  
-				<h2>REGISTRO</h2>  
-		    <form>
 
-		      <label for="usu"><strong>Nombre de usuario: </strong></label><input id="usu" type="text" name="usuario" autofocus required pattern="^[a-zA-Z][a-zA-Z0-9]{5,19}$" title="Solo letras y numeros, no empezar con numero" maxlength="20" size="15" ><br>
+	 		<footer id="footer-comun">
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.twitter.com/"><img src="Images/twitter.png" alt="twitter" height="48" width="55"></a>
+		            </div>
+		        </div>
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.facebook.com/"><img src="Images/facebook.png" alt="facebook" height="55" width="28"></a>
+		            </div>
+		        </div>
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.instagram.com/"><img src="Images/instagram.png" alt="instagram" height="52" width="52"></a>
+		            </div>
+		        </div>
+		        <!-- Final de las 3 redes sociales-->
 
-		      <label for="psw"><strong>Contraseña: </strong></label><input id="psw" type="password" name="psw" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
-
-		      <label for="psw2"><strong>Confirma contraseña: </strong></label><input id="psw2" type="password" name="psw2" required pattern="^[a-zA-Z][a-zA-Z0-9/-/_]{7,19}$" size="15" title="Introduzca aqui su contraseña que debe empezar por una letra"><br>
-
-		      <label for="nombre"><strong>Nombre completo: </strong></label><input id="nombre" type="text" name="nombre" required title="Introduzca aqui su nombre completo"><br>
-
-		      <label for="email"><strong>E-mail: </strong></label><input id="email" type="email" name="email" required title="Introduzca aqui su correo electronico"><br>
-
-		      <label for="fecha"><strong>Fecha: </strong></label><input id="fecha" type="date" name="fecha" required title="Introduzca aqui su fecha de nacimiento"><br>
-		      
-
-		      <input type="submit" value="Enviar"><br><br>
-		      ¿Ya tienes una cuenta?<a href="login.html"><u><strong>Inicia sesión aquí</strong></u></a>
-
-		    </form>
-	  	</section>
+		        <!-- Comienzo de la parte del copyright y demas -->
+		        <p class="copyright">
+		        	<!-- Preguntar al maestro por que falla en el datetime -->
+		        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
+		        </p>
+		        
+		        
+		       	<div id="boton-ir-arriba">
+		       		<a  class="icon-angle-circled-up" href="#contenedor-header"></a>
+		       	</div>
+		        
+	    	</footer>
 		</div>
 
-
- 		<footer id="footer-comun">
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.twitter.com/"><img src="Images/twitter.png" alt="twitter" height="48" width="55"></a>
-	            </div>
-	        </div>
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.facebook.com/"><img src="Images/facebook.png" alt="facebook" height="55" width="28"></a>
-	            </div>
-	        </div>
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.instagram.com/"><img src="Images/instagram.png" alt="instagram" height="52" width="52"></a>
-	            </div>
-	        </div>
-	        <!-- Final de las 3 redes sociales-->
-
-	        <!-- Comienzo de la parte del copyright y demas -->
-	        <p class="copyright">
-	        	<!-- Preguntar al maestro por que falla en el datetime -->
-	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
-	        </p>
-	        
-	        
-	       	<div id="boton-ir-arriba">
-	       		<a  class="icon-angle-circled-up" href="#contenedor-header"></a>
-	       	</div>
-	        
-    	</footer>
+		<div id="registroCorrecto" style="display:none;">
+			<p>Registro realizado con éxito</p>
+			<button onclick="aceptarRegistro()">Iniciar sesión</button>
+		</div>
+		
 	</body>
 </html>
