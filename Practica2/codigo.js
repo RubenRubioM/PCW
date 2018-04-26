@@ -7,6 +7,8 @@
 	2. En el index y buscar hacer un metodo para ordenar las recetas por fecha
 
 	3. Hacer el nueva-receta
+
+	4. Hacer buscar con peticiones de pag y lpag como he hecho en index
 */
 
 /*
@@ -33,11 +35,12 @@ Funciones globales
 //Pedimos las recetas y las montamos en index y buscar
 function peticionRecetas(url){
 	var obj = new XMLHttpRequest();
-	
+	console.log(url);
 	obj.open('GET',url,true);
 	obj.onload = function(){
 		recetas = JSON.parse(obj.responseText);
 		crearRecetasIndex();
+		console.log(recetas.FILAS.TOTAL_COINCIDENCIAS);
 		let texto_numero_resultados = document.getElementById('total-busqueda');
 		if(texto_numero_resultados!=null){
 			texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
@@ -151,21 +154,18 @@ Funciones para el index.html
 function crearRecetasIndex(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
 	
-	for(var i = 0; i<recetas_por_pagina;i++){
+	for(var i = 0; i<recetas.FILAS.length;i++){
 
-		//la receta a imprimir no se pasa de las totales
-		if(receta_imprimir<recetas.FILAS.length){
-
-				//Asignamos los datos del JSON a variables
-			let titulo 		= recetas.FILAS[receta_imprimir].nombre,
-				autor 		= recetas.FILAS[receta_imprimir].autor,
-				comentarios = recetas.FILAS[receta_imprimir].comentarios,
-				likes 		= recetas.FILAS[receta_imprimir].positivos,
-				dislikes	= recetas.FILAS[receta_imprimir].negativos,
-				foto		= recetas.FILAS[receta_imprimir].fichero,
-				desc_foto	= recetas.FILAS[receta_imprimir].descripcion_foto,
-				fecha		= recetas.FILAS[receta_imprimir].fecha,
-				id 			= recetas.FILAS[receta_imprimir].id;
+			//Asignamos los datos del JSON a variables
+			let titulo 		= recetas.FILAS[i].nombre,
+				autor 		= recetas.FILAS[i].autor,
+				comentarios = recetas.FILAS[i].comentarios,
+				likes 		= recetas.FILAS[i].positivos,
+				dislikes	= recetas.FILAS[i].negativos,
+				foto		= recetas.FILAS[i].fichero,
+				desc_foto	= recetas.FILAS[i].descripcion_foto,
+				fecha		= recetas.FILAS[i].fecha,
+				id 			= recetas.FILAS[i].id;
 			
 			//Creamos la tarjeta
 			var tarjeta = 
@@ -190,19 +190,14 @@ function crearRecetasIndex(){
 			div.innerHTML += tarjeta;
 			console.log('Añadida receta nº '+ (receta_imprimir+1));
 			recetas_en_pagina++;
-			receta_imprimir++; //Aumentamos el apuntador al array de recetas
-
-		}else{
-			
-			break;
-		}
 		
 	}
 }
 
 //Modifica el numero actual de pagina de la botonera del index
 function Modificar_botonera_Index(){
-	paginas_totales = Math.ceil(recetas.FILAS.length/recetas_por_pagina);
+	paginas_totales = Math.ceil(recetas.TOTAL_COINCIDENCIAS/recetas_por_pagina);
+	
 	let botonera = document.querySelector('#contenedor-recetas-navegacion>p>span');
 	
 	botonera.innerHTML = `${pagina_actual}/${paginas_totales}`;	
@@ -211,11 +206,12 @@ function Modificar_botonera_Index(){
 //Nos lleva a la primera pagina del index
 function primeraPagina(){
 	if(pagina_actual!=1){
-		receta_imprimir=0;
+		
 		pagina_actual = 1;
 		console.log('Moviendonos a la página '+pagina_actual+"...");
 		borrar_recetas_index();
-		crearRecetasIndex();
+		let pagina = pagina_actual-1;
+		peticionRecetas("./rest/receta/?pag="+pagina+"&lpag=6");
 		Modificar_botonera_Index();
 	}
 }
@@ -224,12 +220,12 @@ function primeraPagina(){
 function boton_atras(){
 	if(pagina_actual>1){
 		
-		receta_imprimir = receta_imprimir-(recetas_en_pagina + recetas_por_pagina);
-		
 		borrar_recetas_index();		
 		pagina_actual--;
 		console.log('Moviendonos a la página '+pagina_actual+"...");
-		crearRecetasIndex();
+		let pagina = pagina_actual-1;
+
+		peticionRecetas("./rest/receta/?pag="+pagina+"&lpag=6");
 		Modificar_botonera_Index();
 	}
 }
@@ -240,7 +236,10 @@ function boton_adelante(){
 		borrar_recetas_index();
 		pagina_actual++;
 		console.log('Moviendonos a la página '+pagina_actual+"...");
-		crearRecetasIndex();
+		let pagina = pagina_actual-1;
+
+		peticionRecetas("./rest/receta/?pag="+pagina+"&lpag=6");
+		
 		Modificar_botonera_Index();
 	}
 }
@@ -251,8 +250,9 @@ function ultimaPagina(){
 		pagina_actual=paginas_totales;
 		console.log('Moviendonos a la página '+pagina_actual+"...");
 		borrar_recetas_index();
-		receta_imprimir= ((paginas_totales-1)*recetas_por_pagina);
-		crearRecetasIndex();
+		
+		let pagina = paginas_totales-1;
+		peticionRecetas("./rest/receta/?pag="+pagina+"&lpag=6");
 		Modificar_botonera_Index();
 	}
 }
@@ -264,7 +264,7 @@ function borrar_recetas_index(){
 	while(div.hasChildNodes()){
 		div.removeChild(div.firstChild);
 	}
-	recetas_en_pagina = 0;
+	
 	console.log('Todas las recetas han sido borradas...');
 }
 
