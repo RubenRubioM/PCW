@@ -386,7 +386,7 @@ function rellenarCamposBusqueda(){
 		peticionRecetas(url_peticion);
 	}else{
 		console.log('No existe ningun argumento...');
-		peticionRecetas('rest/receta/');
+		peticionRecetas('rest/receta/?pag=0&lpag=6');
 	}
 }
 
