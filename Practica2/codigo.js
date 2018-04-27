@@ -4,11 +4,12 @@
 
 	1. Modificar con css el mensaje emergente del login y registro
 
-	2. En el index y buscar hacer un metodo para ordenar las recetas por fecha
 
 	3. Hacer el nueva-receta
 
-	4. Hacer buscar con peticiones de pag y lpag como he hecho en index
+	5. La receta siemrpe debe de tener como minimo una imagen
+
+	6. Usar una variable para no iniciarlizar la subida de receta si la parte de imagenes esta mal desde el principio
 */
 
 /*
@@ -19,8 +20,7 @@ Variables globales
 var paginas_totales; //Total de paginas que tendra el index
 var pagina_actual = 1; //Pagina del index en la que estamos
 var recetas; //archivo JSON con todas las recetas
-var receta_imprimir = 0; //Receta del array que vamos a imprimir
-var recetas_en_pagina = 0; //Recetas que se estan mostrando actualmente
+
 const recetas_por_pagina = 6; //Recetas a mostrar por pagina
 var fotos_receta; //Array de fotos de la receta
 var foto_mostrar = 0; //Foto del array que vamos a mostrar
@@ -188,8 +188,9 @@ function crearRecetasIndex(){
 				</div>`;
 
 			div.innerHTML += tarjeta;
-			console.log('Añadida receta nº '+ (receta_imprimir+1));
-			recetas_en_pagina++;
+			console.log('Añadida receta nº '+ (i));
+			
+
 		
 	}
 }
@@ -318,7 +319,8 @@ function rellenarCamposBusqueda(){
 			comensales	 = document.getElementById("comensales"),
 			dificultad	 = document.getElementById("dificultad"),
 			autor 		 = document.getElementById("autor"),
-			tiempo_elaboracion	 = document.getElementById("elaboracion");
+			tiempo_elaboracion	 = document.getElementById("elaboracion"),
+			tiempo_elaboracion2	 = document.getElementById("elaboracion2");
 
 		var url_peticion = './rest/receta/?';
 		for(var i=0; i<argumentos.length; i++){
@@ -374,10 +376,16 @@ function rellenarCamposBusqueda(){
 				url_peticion += 'c='+tipo_y_parametro[1]+'&';
 			}
 
-			//Minutos
-			if(tipo_y_parametro[0]=='tiempo' && tipo_y_parametro[1]!=""){
+			//desde
+			if(tipo_y_parametro[0]=='tiempo_desde' && tipo_y_parametro[1]!=""){
 				tiempo_elaboracion.value = tipo_y_parametro[1];
-				url_peticion +='di='+tipo_y_parametro[1]+'&df='+tipo_y_parametro[1]+'&';
+				url_peticion +='di='+tipo_y_parametro[1]+'&';
+			}
+
+			//hasta
+			if(tipo_y_parametro[0]=='tiempo_hasta' && tipo_y_parametro[1]!=""){
+				tiempo_elaboracion2.value = tipo_y_parametro[1];
+				url_peticion +='df='+tipo_y_parametro[1]+'&';
 			}
 
 
@@ -576,7 +584,7 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 
 							<span id="numero-preparacion">&#9200; ${tiempo}</span>
 
-							<span id="numero-dificultad">🌟 ${dificultad}</span>
+							<span id="numero-dificultad">&#x2B50; ${dificultad}</span>
 						</p>
 						<p><a href="buscar.html?autor=${autor}">By ${autor}</a></p>
 						<p>
@@ -659,7 +667,7 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 					<form onsubmit="return dejarComentario(this);">
 						<p>
 							TITULO:
-							<input type="text" name="titulo" maxlength="50" pattern="[a-zA-Z0-9]{1,49}$" title="minimo 1 caracter y maximo 50" required>
+							<input type="text" name="titulo" maxlength="50" required title="minimo 1 caracter y maximo 50" required>
 						</p>
 					
 						<textarea name="texto" required></textarea>
@@ -671,6 +679,7 @@ function formatearReceta(receta,comentarios_json,ingredientes_json){
 
 
 	comprobarCajaComentarios();
+	comprobarBotonDeVotos();
 
 }
 
@@ -680,6 +689,17 @@ function comprobarCajaComentarios(){
 	if(!sessionStorage.getItem('login_session')){
 		var caja = document.getElementById('contenedor-introducir-comentario');
 		caja.style.display = "none";
+	}
+}
+
+function comprobarBotonDeVotos(){
+
+	if(!sessionStorage.getItem('login_session')){
+		var elementos = document.querySelectorAll('.contenedor-recetas-receta>section>header>p>button');
+		
+		for(let i=0;i<elementos.length;i++){
+			elementos[i].style.display = 'none';
+		}
 	}
 }
 
@@ -784,6 +804,8 @@ function nuevoIngrediente(){
 	if(ingrediente!=''){
 		lista.innerHTML += `<li>${ingrediente}</li>`;
 	}
+
+	
 	
 }
 
@@ -797,38 +819,94 @@ function nuevaFoto(){
 							
 						</picture>
 						<input type="text" placeholder="Información de la imagen" maxlength="50"></textarea>
-						<p><input type="file" value="Seleccionar foto">
-						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">Eliminar foto</button></p>
+						<p>
+						<label for="foto">
+						<input type="file" value="Seleccionar foto" id="foto">&#x1f4c1;</label>
+						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x2716;</button></p>
 
 						</div>`;
 }
 
 function eliminarFoto(e){
 	let div = e.parentNode.parentNode;
-	
-	document.removeChild(div);
+	console.log(div);
+	div.remove();
 	
 }
 
+
+//Se lanza con el submit de nueva-receta y comenzamos creando la receta por sus parametros y mas tarde le añadimos los ingreientes y las fotos
 function enviarReceta(frm){
-	let titulo 	   = document.getElementById('nombre-receta').value,
-		comensales = document.getElementById('numero-comensales').value,
-		tiempo 	   = document.getElementById('tiempo-elaboracion').value,
-		dificultad = document.getElementById('dificultad').value,
-		texto 	   = document.getElementById('texto-elaboracion').value;
+	
+	let xhr = new XMLHttpRequest(),
+		peticion = './rest/receta/',
+		fd  = new FormData(frm),
+		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
-	console.log(titulo);
-	console.log(comensales);
-	console.log(tiempo);
-	console.log(dificultad);
-	console.log(texto);
-	console.log(frm);
+	fd.append('l',usu.login);
+	
+	xhr.open('POST',peticion,true);
+	xhr.onload = function(){
+		let r = JSON.parse(xhr.responseText);
+		if(r.RESULTADO=='OK'){
+			//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
+			ingresarIngredientes(r.ID);		
 
+		}else{
+			//Ha habido alguna fallo en subir la receta
+
+		}
+	};
+	
+	xhr.setRequestHeader('Authorization',usu.clave);
+	xhr.send(fd);
+	return false;
 
 
 }
 
+//Aqui leemos los ingredientes y los adjuntamos a la receta
+function ingresarIngredientes(id){
+	let lista_ingredientes = document.querySelectorAll('#lista-ingredientes>li');
+	
 
+	let json = [];
+	for(let i=0; i<lista_ingredientes.length;i++){
+		json.push(lista_ingredientes[i].innerHTML);
+	}
+
+	JSON.stringify(json);
+
+
+	let xhr = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/ingredientes',
+		fd  = new FormData(),
+		usu = JSON.parse(sessionStorage.getItem('login_session'));
+
+	fd.append('l',usu.login);
+	fd.append('i',json);
+	
+	xhr.open('POST',peticion,true);
+	xhr.onload = function(){
+		let r = JSON.parse(xhr.responseText);
+		if(r.RESULTADO=='OK'){
+			//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
+			ingresarFotos(id);
+
+		}else{
+			//Ha habido alguna fallo en subir la receta
+
+		}
+	};
+	
+	xhr.setRequestHeader('Authorization',usu.clave);
+	xhr.send(fd);
+	return false;
+}
+
+function ingresarFotos(id){
+
+}
 /*
 
 	Funciones para la pagina registro.html

@@ -632,6 +632,10 @@ body>div>header{
 			padding:0;
 			text-align: left;
 		}
+
+		#foto{
+			display:none;
+		}
 			.contenedor-imagen>input[type="text"]:hover{
 				background-color: #D1E548;
 			}

@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="style.css">
 		<meta name="viewport" content="with=device-width, initial-scale=1.0">
 		<script src="codigo.js"></script>
-		<title>Inicio</title>
+		<title>Nueva Receta</title>
 
 	</head>
 	<body onload="arranque();">
@@ -41,20 +41,22 @@
 
 				    <label for="numero-comensales">Número de comensales:</label><input id="numero-comensales" type="number" name="c" min="1" required><br>
 
-				    <label for="tiempo-elaboracion">Tiempo de elaboración:</label><input id="tiempo-elaboracion" type="number" name="l" min="5" max="100" step="5"  required><br>
+				    <label for="tiempo-elaboracion">Tiempo de elaboración:</label><input id="tiempo-elaboracion" type="number" name="t" min="5" max="100" step="5"  required><br>
 					
 
 				   	<select id="dificultad" name="d">
 						<option>0</option>
 						<option>1</option>
 						<option>2</option>	
-						<option>3</option>	
+						
 					</select> <br>
 					
 					<span id="texto-elaboracion">Elaboración:</span>
 					<textarea name="e"></textarea> <br>
 			      
 			      	<span id="texto-ingredientes">Ingredientes:</span>
+
+			      	<!-- Lista para ingredientes -->
 					<ol  id="lista-ingredientes" contenteditable>
 						
 
