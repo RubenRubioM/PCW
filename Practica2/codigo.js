@@ -822,7 +822,7 @@ function nuevaFoto(){
 						<p>
 						<label for="foto">
 						<input type="file" value="Seleccionar foto" id="foto">&#x1f4c1;</label>
-						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x2716;</button></p>
+						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x232b;</button></p>
 
 						</div>`;
 }
