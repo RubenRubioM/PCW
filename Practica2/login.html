@@ -12,7 +12,7 @@
 
 	</head>
 	<body onload="arranque();">
-		<div id="contenedor-global-login">
+		
 			<header>
 				<div id="contenedor-header">
 					<img id="imagen-header" src="Images/logo-header.png" alt="logo">
@@ -34,7 +34,7 @@
 				</ul>
 			</nav>
 
-		
+			<div id="contenedor-global-login">
 			<div id="contenedor-formulario-login-registro">
 				<section id="formulario-login-registro">	  
 					<h2>LOGIN</h2>  
@@ -50,9 +50,13 @@
 			    </form>
 			    
 		  		</section>
+				</div>
 			</div>
 			
-
+			<div id="errorLogin" style="display:none;">
+				<h2>Error en el login</h2>
+				<button onclick="aceptarErrorLogin()">Aceptar</button>
+			</div>
 
 
 	 		<footer id="footer-comun">
@@ -85,11 +89,8 @@
 		       	</div>
 		        
 	    	</footer>
-		</div>
 		
-		<div id="errorLogin" style="display:none;">
-			<p>Error en el login</p>
-			<button onclick="aceptarErrorLogin()">Aceptar</button>
-		</div>
+		
+		
 	</body>
 </html>

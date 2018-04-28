@@ -263,8 +263,10 @@ function borrar_recetas_index(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
 
 	while(div.hasChildNodes()){
+
 		div.removeChild(div.firstChild);
 	}
+
 	
 	console.log('Todas las recetas han sido borradas...');
 }
@@ -804,9 +806,6 @@ function nuevoIngrediente(){
 	if(ingrediente!=''){
 		lista.innerHTML += `<li>${ingrediente}</li>`;
 	}
-
-	
-	
 }
 
 //Introducimos la plantilla de una nueva foto
@@ -815,54 +814,132 @@ function nuevaFoto(){
 
 	div.innerHTML += `<div class="contenedor-imagen">
 						<picture>
-							<img src="Images/receta-vegana.jpg" alt="receta-vegana"> 
+							<img src="Images/foto-placeholder.jpg" alt="placeholder"> 
 							
 						</picture>
-						<input type="text" placeholder="Información de la imagen" maxlength="50"></textarea>
+						<textarea placeholder="Información de la imagen" maxlength="50" required></textarea>
 						<p>
-						<label for="foto">
-						<input type="file" value="Seleccionar foto" id="foto">&#x1f4c1;</label>
-						<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x232b;</button></p>
+							<label for="foto">
+							<input onchange="fotoSeleccionada(this);" type="file" value="Seleccionar foto" id="foto">&#x1f4c1;</label>
+							<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x232b;</button>
+						</p>
 
 						</div>`;
 }
 
 function eliminarFoto(e){
 	let div = e.parentNode.parentNode;
-	console.log(div);
-	div.remove();
 	
+	div.remove();
+	console.log('Foto eliminada...');
 }
 
+//Esta funcion se activa cada vez que hacemos un input de una imagen y nos pasa por parametro el elemento html donde esta
+var numImagenes = 0;
+function fotoSeleccionada(e){
+	
+	var tam = (e.files[0].size/1024).toFixed(1); //Tamaño del archivo en Kbytes
+	console.log('Tamaño del archivo: '+tam+' Kbytes...');
+
+	if(tam<=300){
+		//Cumple el tamaño y actualizamos la imagen 
+		let img = e.parentNode.parentNode.parentNode.parentNode.children[numImagenes].children[0].children[0].src = "./fotos/"+e.files[0].name;
+		
+		
+		console.log('Foto aceptada...');
+		numImagenes++;
+	}else{
+		//Supera el tamaño maximo y debemos mostrar el error
+		var divError = document.getElementById('errorImagen'),
+			divNormal = document.getElementById('contenedor-nueva-receta');
+
+		divError.children[0].innerHTML = 'Tamaño excedido';
+		divNormal.style.display = "none";
+		divError.style.display = "block";
+
+	}
+}
+
+//Boton del mensaje de error mostrado si la imagen es grande
+function aceptarImagenGrande(){
+	var divError = document.getElementById('errorImagen'),
+		divNormal = document.getElementById('contenedor-nueva-receta');
+
+		divNormal.style.display = "block";
+		divError.style.display = "none";
+}
 
 //Se lanza con el submit de nueva-receta y comenzamos creando la receta por sus parametros y mas tarde le añadimos los ingreientes y las fotos
 function enviarReceta(frm){
 	
-	let xhr = new XMLHttpRequest(),
+	if(comprobarImagenes()){
+		let xhr = new XMLHttpRequest(),
 		peticion = './rest/receta/',
 		fd  = new FormData(frm),
 		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
-	fd.append('l',usu.login);
+		fd.append('l',usu.login);
+		
+		xhr.open('POST',peticion,true);
+		xhr.onload = function(){
+			let r = JSON.parse(xhr.responseText);
+			if(r.RESULTADO=='OK'){
+				//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
+				ingresarIngredientes(r.ID);		
+
+			}else{
+				//Ha habido alguna fallo en subir la receta
+				var divError = document.getElementById('errorImagen'),
+					divNormal = document.getElementById('contenedor-nueva-receta');
+
+				divError.children[0].innerHTML = 'Hubo un error al crear la receta';
+				divNormal.style.display = "none";
+				divError.style.display = "block";
+			}
+		};
+		
+		xhr.setRequestHeader('Authorization',usu.clave);
+		xhr.send(fd);
+		
+	}
+
+		return false;
+
+}
+
+//Comprueba si hay alguna imagen para enviar y asi comenzar la ejecucion de enviarReceta()
+function comprobarImagenes(){
+	var elementos = document.querySelectorAll('.contenedor-imagen>picture>img');
+	var respuesta = false;
 	
-	xhr.open('POST',peticion,true);
-	xhr.onload = function(){
-		let r = JSON.parse(xhr.responseText);
-		if(r.RESULTADO=='OK'){
-			//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
-			ingresarIngredientes(r.ID);		
-
-		}else{
-			//Ha habido alguna fallo en subir la receta
-
+	if(elementos.length!=0){
+		
+		for(let i=0;i<elementos.length;i++){
+			
+			let lastSlash = elementos[i].src.lastIndexOf('/');
+			let nombre = elementos[i].src.substring(lastSlash+1);
+			
+			if(nombre!="foto-placeholder.jpg"){
+				console.log('Si que hay imagenes');
+				respuesta=true;
+				break;
+			}
+			
 		}
-	};
+		
+	}else{
+		console.log('No hay imagenes...');
+		var divError = document.getElementById('errorImagen'),
+			divNormal = document.getElementById('contenedor-nueva-receta');
+
+		divError.children[0].innerHTML = 'No hay ninguna imagen';
+		divNormal.style.display = "none";
+		divError.style.display = "block";
+
+		respuesta=false;
+	}
+	return respuesta;
 	
-	xhr.setRequestHeader('Authorization',usu.clave);
-	xhr.send(fd);
-	return false;
-
-
 }
 
 //Aqui leemos los ingredientes y los adjuntamos a la receta
@@ -877,7 +954,8 @@ function ingresarIngredientes(id){
 
 	JSON.stringify(json);
 
-
+	console.log(json);
+	console.log(id);
 	let xhr = new XMLHttpRequest(),
 		peticion = './rest/receta/'+id+'/ingredientes',
 		fd  = new FormData(),
@@ -891,11 +969,17 @@ function ingresarIngredientes(id){
 		let r = JSON.parse(xhr.responseText);
 		if(r.RESULTADO=='OK'){
 			//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
+			console.log('asdasd');
 			ingresarFotos(id);
 
 		}else{
 			//Ha habido alguna fallo en subir la receta
+			var divError = document.getElementById('errorImagen'),
+				divNormal = document.getElementById('contenedor-nueva-receta');
 
+			divError.children[0].innerHTML = 'Hubo un error al añadir los ingredientes';
+			divNormal.style.display = "none";
+			divError.style.display = "block";
 		}
 	};
 	
@@ -904,8 +988,45 @@ function ingresarIngredientes(id){
 	return false;
 }
 
+var apuntador_elementos=0;
 function ingresarFotos(id){
+	let xhr = new XMLHttpRequest(),
+		peticion = './rest/receta/'+id+'/foto',
+		fd  = new FormData(),
+		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
+	var elementos = document.querySelectorAll('.contenedor-imagen');
+
+	fd.append('l',usu.login);
+	fd.append('t',elementos[apuntador_elementos].children[1].value);
+
+	//He hecho el metodo recursivo hasta que recorra todas las fotos
+	if(apuntador_elementos<elementos.length){
+		xhr.open('POST',peticion,true);
+		xhr.onload = function(){
+			let r = JSON.parse(xhr.responseText);
+			if(r.RESULTADO=='OK'){
+				//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
+				
+				apuntador_elementos++;
+				ingresarFotos(id);
+			}else{
+				//Ha habido alguna fallo en subir la receta
+				var divError = document.getElementById('errorImagen'),
+					divNormal = document.getElementById('contenedor-nueva-receta');
+
+				divError.children[0].innerHTML = 'Hubo un error al añadir las fotos';
+				divNormal.style.display = "none";
+				divError.style.display = "block";
+			}
+		};
+	
+		xhr.setRequestHeader('Authorization',usu.clave);
+		xhr.send(fd);
+		return false;
+	}
+
+	
 }
 /*
 
