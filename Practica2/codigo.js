@@ -408,7 +408,7 @@ Funciones para la pagina login.html
 
 function hacerLogin(frm){
 	let xhr = new XMLHttpRequest(),
-		url = 'rest/login/',
+		url = './rest/login/',
 		fd  = new FormData(frm);
 
 	
