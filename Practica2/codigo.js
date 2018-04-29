@@ -882,10 +882,11 @@ function enviarReceta(frm){
 		
 		xhr.open('POST',peticion,true);
 		xhr.onload = function(){
-			let r = JSON.parse(xhr.responseText);
+			var r = JSON.parse(xhr.responseText);
 			if(r.RESULTADO=='OK'){
 				//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
-				ingresarIngredientes(r.ID);		
+				
+				ingresarIngredientes(r.ID);
 
 			}else{
 				//Ha habido alguna fallo en subir la receta
@@ -900,10 +901,11 @@ function enviarReceta(frm){
 		
 		xhr.setRequestHeader('Authorization',usu.clave);
 		xhr.send(fd);
+
 		
 	}
 
-		return false;
+	return false;
 
 }
 
@@ -951,18 +953,18 @@ function ingresarIngredientes(id){
 	for(let i=0; i<lista_ingredientes.length;i++){
 		json.push(lista_ingredientes[i].innerHTML);
 	}
-
-	JSON.stringify(json);
-
-	console.log(json);
-	console.log(id);
+	
+	var json2 = JSON.stringify(json);
+	console.log(json2);
+	
+	
 	let xhr = new XMLHttpRequest(),
 		peticion = './rest/receta/'+id+'/ingredientes',
 		fd  = new FormData(),
 		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
 	fd.append('l',usu.login);
-	fd.append('i',json);
+	fd.append('i',json2);
 	
 	xhr.open('POST',peticion,true);
 	xhr.onload = function(){
