@@ -3,8 +3,9 @@
 
 
 	1. Modificar con css el mensaje emergente del login y registro
-
-
+	
+	2. COMPROBAR QUE TODAS LAS RUTAS SEAN ABSOLITAS
+	
 	3. Hacer el nueva-receta
 
 	5. La receta siemrpe debe de tener como minimo una imagen
