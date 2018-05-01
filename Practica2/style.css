@@ -651,9 +651,7 @@ body>div>header{
 			max-height: 50px;
 		}
 
-		#foto{
-			display:none;
-		}
+		
 			.contenedor-imagen>input[type="text"]:hover{
 				background-color: #D1E548;
 			}

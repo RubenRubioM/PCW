@@ -821,7 +821,7 @@ function nuevaFoto(){
 						<textarea placeholder="Información de la imagen" maxlength="50" required></textarea>
 						<p>
 							<label for="foto">
-							<input onchange="fotoSeleccionada(this);" type="file" value="Seleccionar foto" id="foto">&#x1f4c1;</label>
+							<input onchange="fotoSeleccionada(this);" type="file" value="Seleccionar foto"></label>
 							<button onclick="eliminarFoto(this);" type="button" value="Eliminar foto">&#x232b;</button>
 						</p>
 
@@ -835,8 +835,8 @@ function eliminarFoto(e){
 	console.log('Foto eliminada...');
 }
 
+
 //Esta funcion se activa cada vez que hacemos un input de una imagen y nos pasa por parametro el elemento html donde esta
-var numImagenes = 0;
 function fotoSeleccionada(e){
 	
 	var tam = (e.files[0].size/1024).toFixed(1); //Tamaño del archivo en Kbytes
@@ -844,11 +844,10 @@ function fotoSeleccionada(e){
 
 	if(tam<=300){
 		//Cumple el tamaño y actualizamos la imagen 
-		let img = e.parentNode.parentNode.parentNode.parentNode.children[numImagenes].children[0].children[0].src = "./fotos/"+e.files[0].name;
-		
-		
+		let img = e.parentNode.parentNode.parentNode.children[0].children[0].src = "./fotos/"+e.files[0].name;
+
 		console.log('Foto aceptada...');
-		numImagenes++;
+		
 	}else{
 		//Supera el tamaño maximo y debemos mostrar el error
 		var divError = document.getElementById('errorImagen'),
