@@ -11,6 +11,8 @@
 	5. La receta siemrpe debe de tener como minimo una imagen
 
 	6. Usar una variable para no iniciarlizar la subida de receta si la parte de imagenes esta mal desde el principio
+
+	7.En receta si no esta logeado mostrar los likes pero impedirle darle likes
 */
 
 /*
@@ -326,6 +328,7 @@ function rellenarCamposBusqueda(){
 			tiempo_elaboracion2	 = document.getElementById("elaboracion2");
 
 		var url_peticion = './rest/receta/?';
+
 		for(var i=0; i<argumentos.length; i++){
 
 			//extraemos el prefijo (t,,n,i,e,a,d,c,di,df)
