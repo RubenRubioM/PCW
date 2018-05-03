@@ -974,7 +974,7 @@ function ingresarIngredientes(id){
 		let r = JSON.parse(xhr.responseText);
 		if(r.RESULTADO=='OK'){
 			//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
-			console.log('asdasd');
+			console.log('Ingredientes aceptados...')
 			ingresarFotos(id);
 
 		}else{
@@ -1005,14 +1005,17 @@ function ingresarFotos(id){
 	fd.append('l',usu.login);
 	fd.append('t',elementos[apuntador_elementos].children[1].value);
 
+	console.log(elementos.length);
+	
 	//He hecho el metodo recursivo hasta que recorra todas las fotos
 	if(apuntador_elementos<elementos.length){
 		xhr.open('POST',peticion,true);
 		xhr.onload = function(){
-			let r = JSON.parse(xhr.responseText);
+			var r = JSON.parse(xhr.responseText);
+			
 			if(r.RESULTADO=='OK'){
-				//Se ha creado la receta ahora leeremos los ingredientes y las imagenes
 				
+				console.log(r.RESUTADO);
 				apuntador_elementos++;
 				ingresarFotos(id);
 			}else{

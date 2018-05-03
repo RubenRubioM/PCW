@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="clase10_teoria.css">
+	<script src="clase10_teoria.js"></script>
+	<title>Clase 10 teoria</title>
+</head>
+<body>
+	<h1>Ejemplo de canvas</h1>
+
+	<section>
+		<h2>Canvas 01</h2>
+		<canvas id="cv01"></canvas>
+		<footer>
+			<div>
+				<label>LineWidth: <input type="number" id="lw" onchange="cambiarLineWidth();"></label>
+				<label>Color Stroke: <input type="color" name="" id="stk-color" value="#aa0000" onchange="cambiarColorStroke();"></label>
+				<label>Color Relleno: <input type="color" name="" id="fill-color" value="#00aa00" onchange="cambiarColorRelleno();"></label>
+
+			</div>
+			<div>
+				<button onclick="limpiar();">Limpiar</button>
+				<label>X: <input type="number" id="x"></label>
+
+				<label>Y: <input type="number" id="y"></label>
+
+
+
+			</div>
+			<button onclick="dibujarRect01();">Rect 01</button>
+			<button onclick="rellenarRect01();">RRect 01</button>
+			<button onclick="pintarTexto();">Pintar Texto</button>
+			<button onclick="dibujarLinea();">Dibujar Linea</button>
+
+		</footer>
+	</section>
+
+	<script>
+		prepararCanvas();
+	</script>
+</body>
+</html>
