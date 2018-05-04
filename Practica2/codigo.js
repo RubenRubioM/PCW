@@ -1,17 +1,9 @@
 /*
 	TO-DO
 
-
-	1. Modificar con css el mensaje emergente del login y registro
 	
-	2. COMPROBAR QUE TODAS LAS RUTAS SEAN ABSOLITAS
+	1- En el buscar arreglar para que se vean 6 por pagina
 	
-	3. Hacer el nueva-receta
-
-	5. La receta siemrpe debe de tener como minimo una imagen
-
-	6. Usar una variable para no iniciarlizar la subida de receta si la parte de imagenes esta mal desde el principio
-
 	7.En receta si no esta logeado mostrar los likes pero impedirle darle likes
 */
 
@@ -38,7 +30,9 @@ Funciones globales
 //Pedimos las recetas y las montamos en index y buscar
 function peticionRecetas(url){
 	var obj = new XMLHttpRequest();
+
 	console.log(url);
+
 	obj.open('GET',url,true);
 	obj.onload = function(){
 		recetas = JSON.parse(obj.responseText);
@@ -846,6 +840,7 @@ function fotoSeleccionada(e){
 	console.log('Tamaño del archivo: '+tam+' Kbytes...');
 
 	if(tam<=300){
+
 		//Cumple el tamaño y actualizamos la imagen 
 		let img = e.parentNode.parentNode.parentNode.children[0].children[0].src = "./fotos/"+e.files[0].name;
 
@@ -1001,14 +996,16 @@ function ingresarFotos(id){
 		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
 	var elementos = document.querySelectorAll('.contenedor-imagen');
+	var fotos = document.querySelectorAll('.contenedor-imagen>p>label>input');
 
-	fd.append('l',usu.login);
-	fd.append('t',elementos[apuntador_elementos].children[1].value);
-
-	console.log(elementos.length);
+	console.log(fotos[0].files[0]);
+	
 	
 	//He hecho el metodo recursivo hasta que recorra todas las fotos
 	if(apuntador_elementos<elementos.length){
+		fd.append('l',usu.login);
+		fd.append('t',elementos[apuntador_elementos].children[1].value);
+		fd.append('f',fotos[apuntador_elementos].files[0]);
 		xhr.open('POST',peticion,true);
 		xhr.onload = function(){
 			var r = JSON.parse(xhr.responseText);
