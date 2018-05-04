@@ -1,12 +1,9 @@
 /*
 	TO-DO
 
-	
-	1- En el buscar arreglar para que se vean 6 por pagina
-	
-	7.En receta si no esta logeado mostrar los likes pero impedirle darle likes
 
-	8- Si no hay ninguna foto hay que mostrar error al darle a enviar imagen
+	
+
 */
 
 /*
@@ -17,7 +14,8 @@ Variables globales
 var paginas_totales; //Total de paginas que tendra el index
 var pagina_actual = 1; //Pagina del index en la que estamos
 var recetas; //archivo JSON con todas las recetas
-
+var receta_imprimir = 0;
+var recetas_en_pagina = 0;
 const recetas_por_pagina = 6; //Recetas a mostrar por pagina
 var fotos_receta; //Array de fotos de la receta
 var foto_mostrar = 0; //Foto del array que vamos a mostrar
@@ -42,16 +40,20 @@ function peticionRecetas(url){
 		
 
 		console.log(recetas.FILAS.TOTAL_COINCIDENCIAS);
+		let texto_numero_resultados = document.getElementById('total-busqueda');
 		
 		if(texto_numero_resultados!=null){
 			//Es el buscar
-			let texto_numero_resultados = document.getElementById('total-busqueda');
 			texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
+			crearRecetasBuscar();
+			Modificar_botonera_Buscar();
 		}else{
 			//Es index
+			crearRecetasIndex();
+			Modificar_botonera_Index();		
+
 		}
 		
-		Modificar_botonera_Index();		
 	};
 
 	obj.onerror = function(){
@@ -200,10 +202,69 @@ function crearRecetasIndex(){
 	}
 }
 
+
+
+function crearRecetasBuscar(){
+	let div = document.querySelector('#contenedor-todas-las-recetas');
+	
+	for(var i = 0; i<recetas_por_pagina;i++){
+
+		if(receta_imprimir<recetas.FILAS.length){
+			console.log(receta_imprimir);
+			//Asignamos los datos del JSON a variables
+			let titulo 		= recetas.FILAS[receta_imprimir].nombre,
+				autor 		= recetas.FILAS[receta_imprimir].autor,
+				comentarios = recetas.FILAS[receta_imprimir].comentarios,
+				likes 		= recetas.FILAS[receta_imprimir].positivos,
+				dislikes	= recetas.FILAS[receta_imprimir].negativos,
+				foto		= recetas.FILAS[receta_imprimir].fichero,
+				desc_foto	= recetas.FILAS[receta_imprimir].descripcion_foto,
+				fecha		= recetas.FILAS[receta_imprimir].fecha,
+				id 			= recetas.FILAS[receta_imprimir].id;
+			
+			//Creamos la tarjeta
+			var tarjeta = 
+				`<div class="contenedor-recetas">
+					<section>
+						<header>
+							<a href="receta.html?${id}" title="${titulo}"><h3>${titulo}</h3></a>
+							<p><a href="buscar.html?autor=${autor}">${autor}</a></p>
+							<p>
+								<span class="icon-comment boton-comentario" >${comentarios}</span>
+								<span class="icon-thumbs-up-alt boton-like" >${likes}</span>
+								<span class="icon-thumbs-down-alt boton-dislike">${dislikes}</span>
+							</p>
+						</header>
+						<img src="fotos/${foto}" alt="${desc_foto}">
+						<footer>
+							<p><time datetime="${fecha}">${fecha}</time></p>
+						</footer>
+					</section>
+				</div>`;
+
+			div.innerHTML += tarjeta;
+			console.log('Añadida receta nº '+ (i));
+			receta_imprimir++;
+			recetas_en_pagina++;
+		}else{
+			break;
+		}
+				
+	}
+}
+
 //Modifica el numero actual de pagina de la botonera del index
 function Modificar_botonera_Index(){
 	paginas_totales = Math.ceil(recetas.TOTAL_COINCIDENCIAS/recetas_por_pagina);
 	
+	let botonera = document.querySelector('#contenedor-recetas-navegacion>p>span');
+	
+	botonera.innerHTML = `${pagina_actual}/${paginas_totales}`;	
+}
+
+function Modificar_botonera_Buscar(){
+	paginas_totales = Math.ceil(recetas.FILAS.length/recetas_por_pagina);
+	console.log(paginas_totales);
 	let botonera = document.querySelector('#contenedor-recetas-navegacion>p>span');
 	
 	botonera.innerHTML = `${pagina_actual}/${paginas_totales}`;	
@@ -222,6 +283,19 @@ function primeraPagina(){
 	}
 }
 
+//Nos lleva a la primera pagina del index
+function primeraPaginaBuscar(){
+	if(pagina_actual!=1){
+		receta_imprimir = 0;
+		pagina_actual = 1;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
+		borrar_recetas_index();
+		
+		crearRecetasBuscar();
+		Modificar_botonera_Buscar();
+	}
+}
+
 //Atrasa una pagina en el index
 function boton_atras(){
 	if(pagina_actual>1){
@@ -233,6 +307,19 @@ function boton_atras(){
 
 		peticionRecetas("./rest/receta/?pag="+pagina+"&lpag=6");
 		Modificar_botonera_Index();
+	}
+}
+
+function boton_atras_Buscar(){
+	if(pagina_actual>1){
+		receta_imprimir = receta_imprimir - (recetas_en_pagina+recetas_por_pagina);
+		borrar_recetas_index();		
+		pagina_actual--;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
+		
+
+		crearRecetasBuscar();
+		Modificar_botonera_Buscar();
 	}
 }
 
@@ -250,6 +337,19 @@ function boton_adelante(){
 	}
 }
 
+function boton_adelante_Buscar(){
+	if(pagina_actual<paginas_totales){
+		borrar_recetas_index();
+		pagina_actual++;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
+		
+
+		crearRecetasBuscar()
+		
+		Modificar_botonera_Buscar();
+	}
+}
+
 //Nos lleva a la ultima pagina del index
 function ultimaPagina(){
 	if(pagina_actual!=paginas_totales){
@@ -263,6 +363,18 @@ function ultimaPagina(){
 	}
 }
 
+function ultimaPaginaBuscar(){
+	if(pagina_actual!=paginas_totales){
+		pagina_actual=paginas_totales;
+		console.log('Moviendonos a la página '+pagina_actual+"...");
+		borrar_recetas_index();
+		receta_imprimir= ((paginas_totales-1)*recetas_por_pagina);
+		
+		crearRecetasBuscar();
+		Modificar_botonera_Buscar();
+	}
+}
+
 //Borra todas las recetas que hay en el index
 function borrar_recetas_index(){
 	let div = document.querySelector('#contenedor-todas-las-recetas');
@@ -272,6 +384,7 @@ function borrar_recetas_index(){
 		div.removeChild(div.firstChild);
 	}
 
+	recetas_en_pagina = 0;
 	
 	console.log('Todas las recetas han sido borradas...');
 }
@@ -700,17 +813,6 @@ function comprobarCajaComentarios(){
 	}
 }
 
-function comprobarBotonDeVotos(){
-
-	if(!sessionStorage.getItem('login_session')){
-		var elementos = document.querySelectorAll('.contenedor-recetas-receta>section>header>p>button');
-		
-		for(let i=0;i<elementos.length;i++){
-			elementos[i].style.display = 'none';
-		}
-	}
-}
-
 //Funcion al darle al submit de enviar comentario
 function dejarComentario(frm){
 
@@ -739,12 +841,17 @@ function dejarComentario(frm){
 
 //El usuario da like a una receta
 function darLike(){
-	enviarVoto(1);
+	if(sessionStorage.getItem('login_session')){
+		enviarVoto(1);
+	}
+	
 }
 
 //El usuario da dislike a una receta
 function darDislike(){
-	enviarVoto(0);
+	if(sessionStorage.getItem('login_session')){
+		enviarVoto(0);
+	}
 }
 
 
@@ -1014,6 +1121,7 @@ function ingresarFotos(id){
 		fd.append('l',usu.login);
 		fd.append('t',elementos[apuntador_elementos].children[1].value);
 		fd.append('f',fotos[apuntador_elementos].files[0]);
+
 		xhr.open('POST',peticion,true);
 		xhr.onload = function(){
 			var r = JSON.parse(xhr.responseText);
@@ -1037,6 +1145,8 @@ function ingresarFotos(id){
 		xhr.setRequestHeader('Authorization',usu.clave);
 		xhr.send(fd);
 		return false;
+	}else{
+		redireccion();
 	}
 
 	
