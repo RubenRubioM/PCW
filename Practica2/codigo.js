@@ -5,6 +5,8 @@
 	1- En el buscar arreglar para que se vean 6 por pagina
 	
 	7.En receta si no esta logeado mostrar los likes pero impedirle darle likes
+
+	8- Si no hay ninguna foto hay que mostrar error al darle a enviar imagen
 */
 
 /*
@@ -21,6 +23,7 @@ var fotos_receta; //Array de fotos de la receta
 var foto_mostrar = 0; //Foto del array que vamos a mostrar
 var nfotos; //Numero de fotos de la receta
 
+
 /*
 
 Funciones globales
@@ -36,11 +39,16 @@ function peticionRecetas(url){
 	obj.open('GET',url,true);
 	obj.onload = function(){
 		recetas = JSON.parse(obj.responseText);
-		crearRecetasIndex();
+		
+
 		console.log(recetas.FILAS.TOTAL_COINCIDENCIAS);
-		let texto_numero_resultados = document.getElementById('total-busqueda');
+		
 		if(texto_numero_resultados!=null){
+			//Es el buscar
+			let texto_numero_resultados = document.getElementById('total-busqueda');
 			texto_numero_resultados.innerHTML = 'Numero total de recetas encontradas: '+recetas.FILAS.length;
+		}else{
+			//Es index
 		}
 		
 		Modificar_botonera_Index();		
