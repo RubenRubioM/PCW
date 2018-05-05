@@ -957,7 +957,7 @@ function fotoSeleccionada(e){
 	if(tam<=300){
 
 		//Cumple el tamaño y actualizamos la imagen 
-		let img = e.parentNode.parentNode.parentNode.children[0].children[0].src = "./fotos/"+e.files[0].name;
+		let img = e.parentNode.parentNode.parentNode.children[0].children[0].children[1].src = "./fotos/"+e.files[0].name;
 
 		console.log('Foto aceptada...');
 		
@@ -1138,20 +1138,23 @@ function ingresarFotos(id){
 		usu = JSON.parse(sessionStorage.getItem('login_session'));
 
 	var elementos = document.querySelectorAll('.contenedor-imagen');
-	var fotos = document.querySelectorAll('.contenedor-imagen>p>label>input');
-
-	if(fotos){
-		fotos = document.querySelectorAll('.contenedor-imagen>picture>label>input');
-		console.log(fotos);
-	}
+	
 	
 	
 	
 	//He hecho el metodo recursivo hasta que recorra todas las fotos
 	if(apuntador_elementos<elementos.length){
+		var fotos = document.querySelectorAll('.contenedor-imagen>p>label>input')[apuntador_elementos];
+
+		if(fotos.files[0]==null){
+			fotos = document.querySelectorAll('.contenedor-imagen>picture>label>input')[apuntador_elementos];
+			console.log('entra');
+			console.log(fotos.files[0]);
+
+		}
 		fd.append('l',usu.login);
 		fd.append('t',elementos[apuntador_elementos].children[1].value);
-		fd.append('f',fotos[apuntador_elementos].files[0]);
+		fd.append('f',fotos.files[0]);
 
 		xhr.open('POST',peticion,true);
 		xhr.onload = function(){
