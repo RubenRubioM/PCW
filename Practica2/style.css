@@ -656,7 +656,7 @@ body>div>header{
 				background-color: #D1E548;
 			}
 
-		.contenedor-imagen>picture>img{
+		.contenedor-imagen>picture>label>img{
 			width: 30%;
 			display: block-flex;
 			margin: 0 30%;

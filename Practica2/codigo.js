@@ -927,7 +927,7 @@ function nuevaFoto(){
 
 	div.innerHTML += `<div class="contenedor-imagen">
 						<picture>
-							<img src="Images/foto-placeholder.jpg" alt="placeholder"> 
+							<label><input onchange="fotoSeleccionada2(this);" style="display: none" type="file"><img width=300 heigth=300 src="Images/foto-placeholder.jpg" alt="placeholder"></label><br>
 							
 						</picture>
 						<textarea placeholder="Información de la imagen" maxlength="50" required></textarea>
@@ -950,7 +950,7 @@ function eliminarFoto(e){
 
 //Esta funcion se activa cada vez que hacemos un input de una imagen y nos pasa por parametro el elemento html donde esta
 function fotoSeleccionada(e){
-	
+	console.log(e);
 	var tam = (e.files[0].size/1024).toFixed(1); //Tamaño del archivo en Kbytes
 	console.log('Tamaño del archivo: '+tam+' Kbytes...');
 
@@ -972,6 +972,33 @@ function fotoSeleccionada(e){
 
 	}
 }
+
+//Esta funcion se activa cada vez que hacemos un input de una imagen y nos pasa por parametro el elemento html donde esta
+function fotoSeleccionada2(e){
+	console.log(e);
+	var tam = (e.files[0].size/1024).toFixed(1); //Tamaño del archivo en Kbytes
+	console.log('Tamaño del archivo: '+tam+' Kbytes...');
+
+	if(tam<=300){
+		console.log(e.parentNode.children[1]);
+		//Cumple el tamaño y actualizamos la imagen 
+		let img = e.parentNode.children[1].src = "./fotos/"+e.files[0].name;
+		e.parentNode.children[1].files = e.files[0];
+		console.log('Foto aceptada...');
+		
+	}else{
+		//Supera el tamaño maximo y debemos mostrar el error
+		var divError = document.getElementById('errorImagen'),
+			divNormal = document.getElementById('contenedor-nueva-receta');
+
+		divError.children[0].innerHTML = 'Tamaño excedido';
+		divNormal.style.display = "none";
+		divError.style.display = "block";
+
+	}
+}
+
+
 
 //Boton del mensaje de error mostrado si la imagen es grande
 function aceptarImagenGrande(){
@@ -1024,9 +1051,9 @@ function enviarReceta(frm){
 
 //Comprueba si hay alguna imagen para enviar y asi comenzar la ejecucion de enviarReceta()
 function comprobarImagenes(){
-	var elementos = document.querySelectorAll('.contenedor-imagen>picture>img');
+	var elementos = document.querySelectorAll('.contenedor-imagen>picture>label>img');
 	var respuesta = false;
-	
+
 	if(elementos.length!=0){
 		
 		for(let i=0;i<elementos.length;i++){
@@ -1113,7 +1140,11 @@ function ingresarFotos(id){
 	var elementos = document.querySelectorAll('.contenedor-imagen');
 	var fotos = document.querySelectorAll('.contenedor-imagen>p>label>input');
 
-	console.log(fotos[0].files[0]);
+	if(fotos){
+		fotos = document.querySelectorAll('.contenedor-imagen>picture>label>input');
+		console.log(fotos);
+	}
+	
 	
 	
 	//He hecho el metodo recursivo hasta que recorra todas las fotos
