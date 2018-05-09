@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css?family=Cinzel|Roboto+Condensed');
+
+*{
+	box-sizing: border-box;
+}
+
+
+
+body{
+	min-width: 320px;
+	max-width: 1920px;
+	margin: auto auto;
+	font-family: 'Roboto Condensed', sans-serif;
+	
+}
+
+	body>header{
+		overflow: hidden;
+		background-image: url(Images/fondo-header.jpg);
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		text-align: center;
+	}
+
+		body>header>img{
+			width: 200px;
+			height: 200px;
+		}
+
+			body>header>div>h1{
+				padding-top: 1em;
+			}
+
+			body>header>div>p{
+				margin: 0;
+			}
+
+
+/* Footer comun de todas las paginas */
+
+#footer-comun {
+    background-color: black;
+    clear: both;
+    height: 410px;
+
+    background-image: url(Images/fondo-header.jpg);
+    background-position: 50% 50%;
+}
+.social-footer {
+    width: 33.33333%;
+    float: left;
+    height: 70%;
+}
+	.social-footer:hover {
+	    background-color: black;
+	    opacity: .5;
+	}
+.center {
+    width: 50px;
+    margin: auto;
+    padding-top: 60px;
+}
+
+.copyright {
+    color: #000;
+    font-family: 'Cinzel', serif;
+    font-size: .9em;
+    text-align: center;
+    display: block;
+    margin: 0;
+    padding-top: 100px;
+    padding-left: 25px;
+
+}
+	.copyright>a{
+		text-decoration: none; color: #000;
+	}
+	.copyright>a>strong:hover{
+		color:#2d572c;
+	}
+
+
+#boton-ir-arriba{
+	padding: 0 50%;
+	overflow: hidden;
+	text-decoration: none;
+	text-align: center;
+	font-size: 1.3em;
+	display: inline-block;
+
+}
+	#boton-ir-arriba>a{
+		color: #2d572c;
+		text-decoration: none;
+		
+	}
+		#boton-ir-arriba>a:hover{
+			
+			color: #fff;
+		}
+
+/*
+	
+	Clases e ID's para el Index.html
+
+*/
+
+#contenedor-main{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: center;
+	overflow: hidden;
+	text-align: center;
+	background-color: #FBECFC;
+
+}
+	
+	#contenedor-main>#contenedor-uno{
+		margin-top: 1em;
+		margin-right: 2em;
+		margin-bottom: 1em;
+		border: 1px solid red;
+		border-radius: 5px;
+	}
+	
+	#contenedor-main>#contenedor-uno>h2{
+		margin:0;
+		text-align: center;
+	}
+
+	#contenedor-main>#contenedor-dos{
+		margin-top: 1em;
+		margin-right: 2em;
+		margin-bottom: 1em;
+		border: 1px solid red;
+		border-radius: 5px;
+
+	}
+	
+	#contenedor-main>#contenedor-dos>h2{
+		margin:0;
+		text-align: center;
+	}

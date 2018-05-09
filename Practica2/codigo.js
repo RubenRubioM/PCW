@@ -927,7 +927,9 @@ function nuevaFoto(){
 
 	div.innerHTML += `<div class="contenedor-imagen">
 						<picture>
-							<label><input onchange="fotoSeleccionada2(this);" style="display: none" type="file"><img width=300 heigth=300 src="Images/foto-placeholder.jpg" alt="placeholder"></label><br>
+							<label><input onchange="fotoSeleccionada2(this);" style="display: none" type="file"><img width=300 heigth=300 src="Images/foto-placeholder.jpg" alt="placeholder"></img>
+							</label>
+							<br>
 							
 						</picture>
 						<textarea placeholder="Información de la imagen" maxlength="50" required></textarea>
