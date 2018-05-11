@@ -19,11 +19,13 @@
 	<div id="contenedor-main">
 		<div id="contenedor-uno">
 			<h2>Seleccione Imagen</h2>
-			<canvas width="360" height="240" id="cv01">
+			<canvas onclick="clickCanvas01();" width="360" height="240" id="cv01">
 				
 			</canvas><br>
 			<footer>
-				<input onchange="seleccionadaImagen(this.files[0]); empezarJuego();" type="file" name="imagen" accept="image/*">
+				<label for="input-archivo">
+					<input onchange="seleccionadaImagen(this.files[0]);" type="file" name="imagen" accept="image/*" id="input-archivo">
+				</label>
 
 			</footer>
 			
@@ -31,22 +33,27 @@
 
 		<div id="contenedor-dos">
 			<h2>Puzzle</h2>
-			<canvas width="360" height="240" id="cv02">
+			<canvas  width="360" height="240" id="cv02">
 				
 			</canvas>
 			<footer>
 				<div>
-				<button disabled>Jugar</button>
-				<button disabled>Finalizar</button>
-				<button disabled>Ayuda</button>	
+				<button disabled id="jugar" onclick="iniciarJuego();">Jugar</button>
+				<button disabled id="finalizar">Finalizar</button>
+				<button disabled id="ayuda">Ayuda</button>	
 				</div>
-				<input type="color" name="color" id="colorPicker">
-				<select>
+				<input onchange="dibujarLineas();" type="color" name="color" id="colorPicker">
+				<select onchange="dibujarLineas();" id="dificultad">
 					<option>Facil</option>
 					<option>Medio</option>
 					<option>Dificil</option>
 				</select>
-				<button onclick="dibujarLineas();">Cambiar Dificultad</button>
+				<div id="contador">
+					<div class="reloj" id="Horas">00</div>
+					<div class="reloj" id="Minutos">:00</div>
+					<div class="reloj" id="Segundos">:00</div>
+					<div class="reloj" id="Centesimas">:00</div>
+				</div>
 			</footer>
 			
 		</div>

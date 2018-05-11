@@ -116,7 +116,6 @@ body{
 	overflow: hidden;
 	text-align: center;
 	background-color: #FBECFC;
-
 }
 	
 	#contenedor-main>#contenedor-uno{
@@ -127,8 +126,8 @@ body{
 		border-radius: 5px;
 	}
 
-		#contenedor-main>#contenedor-uno>input[type="file"]{
-			font-size:11px;
+		#contenedor-main>#contenedor-uno>footer>label>input{
+			padding: 20px 10px;
 		}
 	
 	#contenedor-main>#contenedor-uno>h2{
@@ -154,11 +153,54 @@ body{
 		background-color: red;
 	}
 
-
 canvas{
 	border:1px solid black;
 }
 
 #cv01:hover{
-	background-color: rgba(255,255,0,0.5);
+	background-color: rgba(255,255,0,0.2);
 }
+#cv01{
+	background-position: center;
+}
+
+#contador{
+	margin:0;
+}
+
+.reloj{
+	display:inline;
+	font-size: 2em;
+	font-family: Courier,sans-serif;
+	color: #363431;
+}
+
+
+/* Parte del acerca de */
+
+#contenedor-acercade{
+	background-color: #F3F3CF;
+	text-align: center;
+
+}
+
+#section-acercade{
+	display: inline-block;
+	text-align: center;
+	background-color: #FBECFC;
+
+	font-family: 'Cinzel', serif;
+	color: #2d572c;
+	width: 100%;
+	padding: 5%;
+	border:3px solid #fff;
+
+}
+	#section-acercade>h2{
+		margin:0;
+		padding-bottom: 1em;
+		font-family: 'Cinzel', serif;
+	}
+	#section-acercade>p{
+		font-family: 'Roboto Condensed', sans-serif;
+	}
