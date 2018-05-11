@@ -27,14 +27,14 @@ function prepararCanvas(){
 		fr.onload = function(){
 			let img = new Image();
 
-			img.onload = function{
+			img.onload = function(){
 				let ctx = cv01.getContext('2d');
 
-				ctx.drawImage(img,0,0,cv01.width,cv01.heigth);
+				ctx.drawImage(img,0,0,cv01.width,cv01.height);
 			};
 			img.src = fr.result;
 		};
-		fr.readAsData(fichero);
+		fr.readAsDataURL(fichero);
 
 
 	}

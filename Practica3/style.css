@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Cinzel|Roboto+Condensed');
 
+
 *{
 	box-sizing: border-box;
 }
@@ -125,11 +126,18 @@ body{
 		border: 1px solid red;
 		border-radius: 5px;
 	}
+
+		#contenedor-main>#contenedor-uno>input[type="file"]{
+			font-size:11px;
+		}
 	
 	#contenedor-main>#contenedor-uno>h2{
 		margin:0;
 		text-align: center;
+		background-color: red;
 	}
+
+
 
 	#contenedor-main>#contenedor-dos{
 		margin-top: 1em;
@@ -143,4 +151,14 @@ body{
 	#contenedor-main>#contenedor-dos>h2{
 		margin:0;
 		text-align: center;
+		background-color: red;
 	}
+
+
+canvas{
+	border:1px solid black;
+}
+
+#cv01:hover{
+	background-color: rgba(255,255,0,0.5);
+}

@@ -8,7 +8,7 @@
 	<title>Index</title>
 </head>
 <body>
-	<header>
+	<header id="arriba">
 		<img src="./Images/Logo-header.png">
 		<div>
 			<h1>Página de Puzzles</h1>
@@ -19,29 +19,36 @@
 	<div id="contenedor-main">
 		<div id="contenedor-uno">
 			<h2>Seleccione Imagen</h2>
-			<canvas>
+			<canvas width="360" height="240" id="cv01">
 				
 			</canvas><br>
-			<input onchange="seleccionadaImagen();" type="file" name="imagen">
+			<footer>
+				<input onchange="seleccionadaImagen(this.files[0]); empezarJuego();" type="file" name="imagen" accept="image/*">
+
+			</footer>
+			
 		</div>
 
 		<div id="contenedor-dos">
 			<h2>Puzzle</h2>
-			<canvas>
+			<canvas width="360" height="240" id="cv02">
 				
 			</canvas>
-			<div>
-				<button>Jugar</button>
-				<button>Finalizar</button>
-				<button>Ayuda</button>	
-			</div>
-			<input type="color" name="color">
-			<select>
-				<option>Facil</option>
-				<option>Medio</option>
-				<option>Dificil</option>
-
-			</select>
+			<footer>
+				<div>
+				<button disabled>Jugar</button>
+				<button disabled>Finalizar</button>
+				<button disabled>Ayuda</button>	
+				</div>
+				<input type="color" name="color" id="colorPicker">
+				<select>
+					<option>Facil</option>
+					<option>Medio</option>
+					<option>Dificil</option>
+				</select>
+				<button onclick="dibujarLineas();">Cambiar Dificultad</button>
+			</footer>
+			
 		</div>
 	</div>
 
@@ -71,9 +78,13 @@
 	        
 	        
 	       	<div id="boton-ir-arriba">
-	       		<a href="#contenedor-header">&#8613;</a>
+	       		<a href="#arriba">&#8613;</a>
 	       	</div>
 	        
     	</footer>
+
+    	<script>
+    		prepararCanvas();
+    	</script>
 </body>
 </html>
