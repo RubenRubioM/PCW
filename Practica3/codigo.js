@@ -184,7 +184,11 @@ function copiarImagen(){
 
 //Se llama al darle click en jugar e inicia el cronometro
 function iniciarJuego(){
-	control = setInterval(cronometro,10);
+	document.getElementById('jugar').disabled = true;
+	document.getElementById('finalizar').disabled = false;
+	document.getElementById('ayuda').disabled = false;
+	document.getElementById('Segundos').style.display = 'block';
+	control = setInterval(cronometro,1000);
 }
 
 var centesimas = 0;
@@ -194,44 +198,11 @@ var horas = 0;
 
 function reinicio () {
 	clearInterval(control);
-	centesimas = 0;
 	segundos = 0;
-	minutos = 0;
-	horas = 0;
-	Centesimas.innerHTML = ":00";
-	Segundos.innerHTML = ":00";
-	Minutos.innerHTML = ":00";
-	Horas.innerHTML = "00";
 }
 
 function cronometro () {
-	if (centesimas < 99) {
-		centesimas++;
-		if (centesimas < 10) { centesimas = "0"+centesimas }
-		Centesimas.innerHTML = ":"+centesimas;
-	}
-	if (centesimas == 99) {
-		centesimas = -1;
-	}
-	if (centesimas == 0) {
-		segundos ++;
-		if (segundos < 10) { segundos = "0"+segundos }
-		Segundos.innerHTML = ":"+segundos;
-	}
-	if (segundos == 59) {
-		segundos = -1;
-	}
-	if ( (centesimas == 0)&&(segundos == 0) ) {
-		minutos++;
-		if (minutos < 10) { minutos = "0"+minutos }
-		Minutos.innerHTML = ":"+minutos;
-	}
-	if (minutos == 59) {
-		minutos = -1;
-	}
-	if ( (centesimas == 0)&&(segundos == 0)&&(minutos == 0) ) {
-		horas ++;
-		if (horas < 10) { horas = "0"+horas }
-		Horas.innerHTML = horas;
-	}
+	segundos++;
+	Segundos.innerHTML = segundos+"s";
+	console.log(segundos);
 }
