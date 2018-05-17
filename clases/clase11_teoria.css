@@ -1,3 +1,15 @@
 canvas{
 	border: 1px solid #234;
 }
+
+body>section{
+	display: inline-block;
+	float: left;
+}
+body>section:nth-of-type(2){
+	margin-left: .5em;
+}
+
+body>section>footer>div{
+	display: inline-flex;
+}

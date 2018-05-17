@@ -3,11 +3,16 @@
 //////////////////////////////////////////////////////////
 
 var _ANCHO_ = 360,
-    _ALTO_  = 240;
+    _ALTO_  = 240,
+    filas,
+    columnas,
+    dim;
 
 function redireccion(){
 	location.href = './index.html';
 }
+
+
 
 //Prepara el canvas y el drag&drop
 function prepararCanvas(){
@@ -78,6 +83,9 @@ function prepararCanvas(){
 		}
 
 	}
+
+
+
 }
 
 //Para que al darle click en el canvas se abra el input[file]
@@ -113,10 +121,7 @@ function seleccionadaImagen(e){
 function dibujarLineas(){
 	let cv    = document.querySelector('#cv02'),
 		ctx   = cv.getContext('2d'),
-		nivel = document.getElementById('dificultad').value,
-		columnas,
-		filas,
-		dim;
+		nivel = document.getElementById('dificultad').value;
 
 	//Siemrpe limpiaremos el canvas antes de dibujar las lineas
 	cv.width = cv.width;
@@ -142,7 +147,7 @@ function dibujarLineas(){
 	ctx.strokeStyle = document.getElementById('colorPicker').value;
 
 	//Dibujamos las columnas
-	for(let i = 0; i<columnas; i++){
+	for(let i = 1; i<columnas; i++){
 		//lineas verticales
 		ctx.moveTo(i * dim,0);
 		ctx.lineTo(i * dim,cv.height);
@@ -155,7 +160,7 @@ function dibujarLineas(){
 	ctx.strokeStyle = document.getElementById('colorPicker').value;
 
 	//Dibujamos las filas
-	for(let i = 0; i<filas; i++){
+	for(let i = 1; i<filas; i++){
 		//lineas verticales
 		ctx.moveTo(0,i * dim);
 		ctx.lineTo(cv.width,i * dim);
@@ -188,8 +193,16 @@ function iniciarJuego(){
 	document.getElementById('finalizar').disabled = false;
 	document.getElementById('ayuda').disabled = false;
 	document.getElementById('Segundos').style.display = 'block';
+
+	desordenarPiezas();
 	control = setInterval(cronometro,1000);
 }
+
+
+function desordenarPiezas(){
+
+}
+
 
 var centesimas = 0;
 var segundos = 0;

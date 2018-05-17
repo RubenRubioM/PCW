@@ -12,7 +12,7 @@
 		<h2>Canvas 1</h2>
 		<canvas id="cv01"></canvas>
 		<footer>
-			<button onclick="limpiar();">Limpiar</button>
+			<button onclick="limpiar(event);">Limpiar</button>
 			<button onclick="prueba01();">Prueba 01</button>
 			<button onclick="traslacion();">Traslacion</button>
 			<button onclick="rotacion();">Rotacion</button>
@@ -21,6 +21,8 @@
 			<button onclick="imagen01();">Imagen 01</button>
 			<button onclick="copiar01();">Copiar 01</button>
 			<button onclick="copiar02();">Copiar 02</button>
+			<button onclick="copiar03();">Copiar imagen</button>
+
 
 
 			
@@ -31,6 +33,18 @@
 		<canvas id="cv02"></canvas>
 		<footer>
 			<button onclick="lineas();">Lineas</button>
+			<button onclick="limpiar(event);">Limpiar</button>
+			<br>
+			<div>Posicion (X,Y): <output id="posXY"></output></div>
+			<div>Posicion entrar (X,Y): <output id="posEXY"></output></div>
+			<div>Posicion salir (X,Y): <output id="posLXY"></output></div>
+			<div>Posicion click (X,Y): <output id="posCXY"></output></div>
+			<div>Posicion down (X,Y): <output id="posDXY"></output></div>
+			<div>Posicion up (X,Y): <output id="posUXY"></output></div>
+			<div>Fila/Col.: <output id="filaCol"></output></div>
+
+
+
 		</footer>
 	</section>
 	<script>
