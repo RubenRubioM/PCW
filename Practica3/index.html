@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
 	<meta charset="UTF-8">
@@ -8,85 +8,99 @@
 	<title>Index</title>
 </head>
 <body>
-	<header id="arriba">
-		<img src="./Images/Logo-header.png">
-		<div>
-			<h1>Página de Puzzles</h1>
-			<p>La mejor página para hacer un puzzle</p>
-		</div>	
-	</header>
-	
-	<div id="contenedor-main">
-		<div id="contenedor-uno">
-			<h2>Seleccione Imagen</h2>
-			<canvas onclick="clickCanvas01();" width="360" height="240" id="cv01">
-				
-			</canvas><br>
-			<footer>
-				<label for="input-archivo">
-					<input onchange="seleccionadaImagen(this.files[0]);" type="file" name="imagen" accept="image/*" id="input-archivo">
-				</label>
+	<div id="contenedor-global">
+		<header id="arriba">
+			<img src="./Images/Logo-header.png" alt="logo">
+			<div>
+				<h1>Página de Puzzles</h1>
+				<p>La mejor página para hacer un puzzle</p>
+			</div>	
+		</header>
+		
+		<div id="contenedor-main">
+			<div id="contenedor-uno">
+				<h2>Seleccione Imagen</h2>
+				<canvas onclick="clickCanvas01();" width="360" height="240" id="cv01">
+					
+				</canvas><br>
+				<footer>
+					<label for="input-archivo">
+						<input onchange="seleccionadaImagen(this.files[0]);" type="file" name="imagen" accept="image/*" id="input-archivo">
+					</label>
 
-			</footer>
-			
+				</footer>
+				
+			</div>
+
+			<div id="contenedor-dos">
+				<h2>Puzzle</h2>
+				<canvas  width="360" height="240" id="cv02">
+					
+				</canvas>
+				<footer>
+					<div>
+					<button disabled id="jugar" onclick="iniciarJuego();">Jugar</button>
+					<button disabled id="finalizar" onclick="finalizarJuego();">Finalizar</button>
+					<button disabled id="ayuda" onclick="ayuda();">Ayuda</button>	
+					</div>
+					<input onchange="dibujarLineas();" type="color" name="color" id="colorPicker">
+					<select onchange="dibujarLineas();" id="dificultad">
+						<option>Facil</option>
+						<option>Medio</option>
+						<option>Dificil</option>
+					</select>
+					<div id="contador">
+						<div style="display:none;" class="reloj" id="Segundos"></div>
+						<div style="display:none;" class="estadisticas" id="movimientos">Movimientos:</div>
+						<div style="display:none;" class="estadisticas" id="errores">Errores:</div>
+
+					</div>
+				</footer>
+				
+			</div>
 		</div>
 
-		<div id="contenedor-dos">
-			<h2>Puzzle</h2>
-			<canvas  width="360" height="240" id="cv02">
-				
-			</canvas>
-			<footer>
-				<div>
-				<button disabled id="jugar" onclick="iniciarJuego();">Jugar</button>
-				<button disabled id="finalizar">Finalizar</button>
-				<button disabled id="ayuda">Ayuda</button>	
-				</div>
-				<input onchange="dibujarLineas();" type="color" name="color" id="colorPicker">
-				<select onchange="dibujarLineas();" id="dificultad">
-					<option>Facil</option>
-					<option>Medio</option>
-					<option>Dificil</option>
-				</select>
-				<div id="contador">
-					<div style="display:none;" class="reloj" id="Segundos"></div>
-				</div>
-			</footer>
-			
-		</div>
-	</div>
+		<footer id="footer-comun">
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.twitter.com/"><img src="Images/twitter.png" alt="twitter" height="48" width="55"></a>
+		            </div>
+		        </div>
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.facebook.com/"><img src="Images/facebook.png" alt="facebook" height="55" width="28"></a>
+		            </div>
+		        </div>
+		        <div class="social-footer">
+		            <div class="center">
+		                <a href="https://www.instagram.com/"><img src="Images/instagram.png" alt="instagram" height="52" width="52"></a>
+		            </div>
+		        </div>
+		        <!-- Final de las 3 redes sociales-->
 
-	<footer id="footer-comun">
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.twitter.com/"><img src="Images/twitter.png" alt="twitter" height="48" width="55"></a>
-	            </div>
-	        </div>
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.facebook.com/"><img src="Images/facebook.png" alt="facebook" height="55" width="28"></a>
-	            </div>
-	        </div>
-	        <div class="social-footer">
-	            <div class="center">
-	                <a href="https://www.instagram.com/"><img src="Images/instagram.png" alt="instagram" height="52" width="52"></a>
-	            </div>
-	        </div>
-	        <!-- Final de las 3 redes sociales-->
+		        <!-- Comienzo de la parte del copyright y demas -->
+		        <p class="copyright">
+		        	<!-- Preguntar al maestro por que falla en el datetime -->
+		        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
+		        </p>
+		        
+		        
+		       	<div id="boton-ir-arriba">
+		       		<a href="#arriba">&#8613;</a>
+		       	</div>
+		        
+	    	</footer>
+	    </div>
+	    <!-- fin del contenedor global -->
 
-	        <!-- Comienzo de la parte del copyright y demas -->
-	        <p class="copyright">
-	        	<!-- Preguntar al maestro por que falla en el datetime -->
-	        	&copy;<time datetime="2018-02-09 15:55">2018-02-9</time><a href="acerca.html"><strong> Acerca de nosotros</strong></a>
-	        </p>
-	        
-	        
-	       	<div id="boton-ir-arriba">
-	       		<a href="#arriba">&#8613;</a>
-	       	</div>
-	        
-    	</footer>
-
+	    <div style="display:none;" id="mensaje-modal">
+	    	<div>
+	    		<h2>Fin del juego</h2>
+	    		<p>Has dejado <output id="out-piezas"></output> piezas por colocar bien despues de <output id="out-movimientos"></output> movimientos y has empleado <output id="out-segundos"></output> segundos.</p>
+	    		<button onclick="reiniciarJuego();">Volver a jugar</button>
+	    	</div>
+	    	
+	    </div>
     	<script>
     		prepararCanvas();
     	</script>
