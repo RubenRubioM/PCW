@@ -37,6 +37,29 @@ body{
 				margin: 0;
 			}
 
+body>header{
+		overflow: hidden;
+		background-image: url(Images/fondo-header.jpg);
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		justify-content: center;
+		text-align: center;
+	}
+
+		body>header>img{
+			width: 200px;
+			height: 200px;
+		}
+
+			body>header>div>h1{
+				padding-top: 1em;
+			}
+
+			body>header>div>p{
+				margin: 0;
+			}
+
 
 /* Footer comun de todas las paginas */
 

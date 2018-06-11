@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="examen.css">
+	<script src="examen.js"></script>
+	<meta name="viewport" content="with=device-width, initial-scale=1.0">
+	<title>Examen</title>
+</head>
+<body>
+	<div id="contenedor-global">
+		<header id="contenedor-header">
+			<div>
+				<h1>Juego del Mastermind</h1>
+				<p>Programacion Cliente Web</p>
+				<p>Examen 11 de junio de 2018, 9:00h</p>
+			</div>
+		
+		</header>
+		<!-- Fin del HEADER -->
+
+		<div id="contenedor-central">
+			<div class="cajas" id="colores-posibles">
+				<h3>Colores Posibles</h3>
+				<img src="imgs/ficha6.svg">
+
+				<img src="imgs/ficha5.svg">
+				<img src="imgs/ficha4.svg">
+
+				<img src="imgs/ficha3.svg">
+
+				<img src="imgs/ficha2.svg">
+				<img src="imgs/ficha1.svg">
+
+			</div>
+			<div class="cajas" id="codigo-oculto">
+				<h3>Codigo oculto</h3>
+
+				<img src="imgs/ficha0.svg">
+				<img src="imgs/ficha0.svg">
+
+				<img src="imgs/ficha0.svg">
+
+				<img src="imgs/ficha0.svg">
+
+			</div>
+			<div class="cajas" id="combinaciones">
+				<h3>Combinaciones</h3>
+				<p>Introduce un codigo:</p>
+				<img class="seleccionables" src="imgs/ficha0.svg">
+				<img class="seleccionables" src="imgs/ficha0.svg">
+
+				<img class="seleccionables" src="imgs/ficha0.svg">
+
+				<img class="seleccionables" src="imgs/ficha0.svg"><br>
+				<button onclick="empezar();" id="empezar">Empezar</button>
+				<button disabled onclick="enviar();" id="enviar">Enviar</button>
+				<br>
+				<h3>Intentos</h3>
+			</div>
+
+		</div>
+
+		<!-- Fin del div global -->
+		<footer id="contenedor-footer">
+			<p>Nombre:Ruben Rubio Martinez <br>
+			DNI: 20084606V <br>
+			Grupo: 7-Viernes 11:00h</p>
+		</footer>
+	</div>
+	
+	<!-- fin del contenedor global -->
+
+    <div style="display:none;" id="mensaje-modal">
+    	<div>
+    		<h2>Enhorabuena</h2>
+    		<p id="parrafo">Mensaje modal parrafo</p>
+    		<button onclick="recargar();">Hacer cosa</button>
+    	</div>	
+    </div>
+
+</body>
+</html>

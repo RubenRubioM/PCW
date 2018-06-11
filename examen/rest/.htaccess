@@ -1,0 +1,41 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Ruta completa desde htdocs hasta la carpeta "rest".
+# Si el path hasta la carpeta es C:\xampp\htdocs\practica2\rest,
+# habría que poner lo siguiente: RewriteBase /practica2/rest/
+RewriteBase /examen/rest/
+
+# Con el valor 307 en las reglas de abajo se redirigen todas las
+# peticiones
+
+##################################################
+### REGLAS PARA PEDIR INFORMACIÓN DE LOS COLORES.
+### ESTA PETICIÓN SÓLO ESTÁ PARA COMPROBAR QUE EL SERVIDOR FUNCIONA.
+##################################################
+# Regla que redirige a rest/get/color.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^color/(.*)$ get/color.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA PEDIR UNA COMBINACION NUEVA O COMPROBAR UNA COMBINACION
+##################################################
+# Regla que redirige a rest/get/combinacion.php
+# Con esta línea de abajo, sólo acepta peticiones GET
+RewriteCond %{THE_REQUEST} ^GET
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^combinacion/(.*)$ get/combinacion.php?prm=$1&%{QUERY_STRING} [R=307,L]
+
+##################################################
+### REGLAS PARA BORRAR UNA COMBINACION (PARTIDA)
+##################################################
+# Regla que redirige a rest/delete/combinacion.php
+# Con esta línea de abajo, sólo acepta peticiones DELETE
+RewriteCond %{THE_REQUEST} ^DELETE
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^combinacion/(.*)$ delete/combinacion.php?prm=$1&%{QUERY_STRING} [R=307,L]
